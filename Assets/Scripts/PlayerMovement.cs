@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
         dirY = rb.velocity.y;
-        Debug.Log("dirY: " + dirY);
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
