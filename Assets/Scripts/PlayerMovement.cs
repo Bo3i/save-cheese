@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float forceBoost = 0.25f;
+    [SerializeField] private float crawlSpeed = 7f;
 
 
     private enum MovementState { idle, running, jumping, falling}
@@ -64,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 //Debug.Log("just under and jumping " + rb.velocity);
-                rb.AddForce(Vector2.up * 0.25f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * forceBoost, ForceMode2D.Impulse);
             }
         }
 
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButton("Jump"))
             {
-                rb.velocity = new Vector2(rb.velocity.x, moveSpeed);
+                rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
             }
         }
 
