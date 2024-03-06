@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 //Debug.Log("just under and jumping " + rb.velocity);
-                rb.AddForce(Vector2.up * 0.2f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * 0.25f, ForceMode2D.Impulse);
             }
         }
 
