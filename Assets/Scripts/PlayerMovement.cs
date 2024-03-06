@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D coll;
     private Animator anim;
+    private Tilemap tilemap;
 
 
     private float dirX = 0;
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        tilemap = GameObject.Find("CaveWalls").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -36,13 +39,48 @@ public class PlayerMovement : MonoBehaviour
         dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
         dirY = rb.velocity.y;
+       
+        ClimbJumpCheck();
+        UpdateAnimationState();
+    }
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+    private void ClimbJumpCheck()
+    {
+        Vector3Int cell = tilemap.WorldToCell(transform.position);
+        TileBase tile = tilemap.GetTile(cell);
+        cell.y += 1;
+        TileBase tileUp = tilemap.GetTile(cell);
+        if (tile != null && tileUp == null && IsGrounded())
+        {
+            // Debug.Log("just under");
+            if (Input.GetButton("Jump"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+        }
+        else if (tile != null && tileUp == null)
+        {
+            //fDebug.Log("just under");
+            if (Input.GetButton("Jump"))
+            {
+                //Debug.Log("just under and jumping " + rb.velocity);
+                rb.AddForce(Vector2.up * 0.2f, ForceMode2D.Impulse);
+            }
+        }
+
+        else if (tile != null)
+        {
+            if (Input.GetButton("Jump"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, moveSpeed);
+            }
+        }
+
+
+        else if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-
-        UpdateAnimationState();
     }
 
     private void UpdateAnimationState()

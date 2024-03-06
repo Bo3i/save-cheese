@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cherry
   - Trap
+  - Diggable
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 736701907
+    locked: 0
+  - name: Climb
+    uniqueID: 3765482243
     locked: 0
   - name: Foreground
     uniqueID: 1347190349
