@@ -10,17 +10,16 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D coll;
     private Animator anim;
-    private Tilemap tilemap;
 
 
     private float dirX = 0;
     private float dirY = 0;
 
+
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
-    [SerializeField] private float forceBoost = 0.25f;
-    [SerializeField] private float crawlSpeed = 7f;
+    [SerializeField] private float crawlSpeed = 3f;
 
 
     private enum MovementState { idle, running, jumping, falling}
@@ -32,73 +31,75 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-        tilemap = GameObject.Find("CaveWalls").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         dirX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
-        dirY = rb.velocity.y;
-       
-        ClimbJumpCheck();
-        UpdateAnimationState();
+
+        if (!Input.GetKey(KeyCode.E))
+        {
+            ClimbCheck();
+            MovePlayer();
+            UpdateAnimationState();
+        }
+        else
+        {
+            anim.SetInteger("state", 0);
+            if (dirX > 0f)
+            {
+                sprite.flipX = true;
+            }
+            else if (dirX < 0f)
+            {
+                sprite.flipX = false;
+            }
+        }
+
+        
     }
 
-    private void ClimbJumpCheck()
+    private void MovePlayer()
     {
-        Vector3Int cell = tilemap.WorldToCell(transform.position);
-        TileBase tile = tilemap.GetTile(cell);
-        cell.y += 1;
-        TileBase tileUp = tilemap.GetTile(cell);
-        if (tile != null && tileUp == null && IsGrounded())
-        {
-            // Debug.Log("just under");
-            if (Input.GetButton("Jump"))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
-        }
-        else if (tile != null && tileUp == null)
-        {
-            //fDebug.Log("just under");
-            if (Input.GetButton("Jump"))
-            {
-                //Debug.Log("just under and jumping " + rb.velocity);
-                rb.AddForce(Vector2.up * forceBoost, ForceMode2D.Impulse);
-            }
-        }
-
-        else if (tile != null)
-        {
-            if (Input.GetButton("Jump"))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
-            }
-        }
-
-
-        else if (Input.GetButtonDown("Jump") && IsGrounded())
+        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        if (Input.GetButton("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
+    private void ClimbCheck()
+    {
+        if (IsWalled())
+        {
+            if (Input.GetButton("Jump") && IsGrounded())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+            else if (Input.GetButton("Jump"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
+            }
+        }
+    }
+
+    
+
     private void UpdateAnimationState()
     {
         MovementState state;
-        
+        dirY = rb.velocity.y;
 
         if (dirX > 0f)
         {
             state = MovementState.running;
-            sprite.flipX = false;
+            sprite.flipX = true;
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
-            sprite.flipX = true;
+            sprite.flipX = false;
         }
         else
         {
@@ -120,5 +121,10 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.right, .1f, jumpableGround) || Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.left, .1f, jumpableGround);
     }
 }
