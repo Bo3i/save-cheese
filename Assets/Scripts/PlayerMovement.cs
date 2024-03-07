@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirX = 0;
     private float dirY = 0;
+    private bool isClimbing;
+
 
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
@@ -30,12 +32,12 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        isClimbing = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
         ClimbCheck();
         MovePlayer();
         UpdateAnimationState();
@@ -55,15 +57,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsWalled())
         {
+
             if (Input.GetButton("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
             else if (Input.GetAxisRaw("Vertical") == 1)
             {
+                Debug.Log("Climbing");
                 rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
             }
+            
         }
+        else if (isClimbing && IsGrounded())
+        {
+            isClimbing = false;
+            rb.AddForce(new Vector2(0, 0.5f), ForceMode2D.Impulse);
+            Debug.Log("BUG");
+        }
+        else
+        {
+            isClimbing = false;
+        }
+
     }
 
     
@@ -106,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool IsWalled()
-    { 
+    {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.right, .1f, jumpableGround) || Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.left, .1f, jumpableGround);
     }
 }
