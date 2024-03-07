@@ -6,6 +6,10 @@ using UnityEngine.UIElements;
 
 public class PlayerDigging : MonoBehaviour
 {
+    private Animator anim;
+    private Rigidbody2D rb;
+    private Transform player;
+
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase tile;
     [SerializeField] private TileBase dirtLeftTop;
@@ -18,12 +22,21 @@ public class PlayerDigging : MonoBehaviour
     [SerializeField] private TileBase dirtRightBottom;
     [SerializeField] private TileBase dirtMiddle;
 
+    private bool digging;
+
     private enum Neighbour { up, down, left, right }
     private enum TileType
     {
         dirtLeftTop, dirtRightTop, dirtLeft, dirtRight, dirtBottom, dirtTop, dirtLeftBottom, dirtRightBottom, dirtMiddle
     }
     
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Transform>();
+        digging = false;
+    }
 
     // Update is called once per frame
     private void Update()
@@ -79,28 +92,76 @@ public class PlayerDigging : MonoBehaviour
     {
         Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector3Int cell = tilemap.WorldToCell(transform.position);
-        if (Input.GetKey(KeyCode.E) && dir != new Vector2(0, 0))
+        if (Input.GetKey(KeyCode.E) && dir != new Vector2(0, 0) && !digging)
         {
-            cell.x += (int)dir.x;
-            cell.y += (int)dir.y;
-            tilemap.SetTileFlags(cell, TileFlags.None);
-            StartCoroutine(Fade(cell));          
             
+            if ((dir.x != 0 && dir.y == 0) || (dir.x == 0 && dir.y != 0) )
+            {
+                
+                cell.x += (int)dir.x;
+                cell.y += (int)dir.y;
+                if (tilemap.GetTile(cell) != null)
+                {
+                    digging = true;
+                    int an = UpdateAimation(dir);
+                    tilemap.SetTileFlags(cell, TileFlags.None);
+                    StartCoroutine(Fade(cell, an));
+                }
+                
+            }
+
         }
     }
 
-    IEnumerator Fade(Vector3Int cell)
+    IEnumerator Fade(Vector3Int cell, int an)
     {
         Color c = tilemap.GetColor(cell);
         for (float alpha = 1f; alpha >= 0; alpha -= 0.015f)
         {
+            anim.SetInteger("state", an);
             //Debug.Log("Fading");
             c.a = alpha;
             tilemap.SetColor(cell,c);
             yield return null;
         }
+        anim.SetInteger("state", 0);
         tilemap.SetTile(cell, null);
         UpdateNeighbours(cell);
+        digging = false;
     }
 
+    private int UpdateAimation(Vector2 dir)
+    {
+        int ret = 0;
+        if (digging)
+        {
+            if (dir.x == 1)
+            {
+                ret = 5;
+                //anim.SetInteger("state", 5);
+                Debug.Log("Right");
+            }
+            else if (dir.x == -1)
+            {
+                ret = 5;
+                //anim.SetInteger("state", 5);
+                Debug.Log("Left");
+            }
+            else if (dir.y == 1)
+            {
+                ret = 7;
+                //anim.SetInteger("state", 7);
+                Debug.Log("Up");
+            }
+            else if (dir.y == -1)
+            {
+                ret = 8;
+                //anim.SetInteger("state", 8);
+                Debug.Log("Down");
+            }
+
+        }
+        return ret;
+        
+    }   
 }

@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirX = 0;
     private float dirY = 0;
-    private bool isClimbing;
 
 
     [SerializeField] private LayerMask jumpableGround;
@@ -32,20 +31,37 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-        isClimbing = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        ClimbCheck();
-        MovePlayer();
-        UpdateAnimationState();
+        dirX = Input.GetAxis("Horizontal");
+
+        if (!Input.GetKey(KeyCode.E))
+        {
+            ClimbCheck();
+            MovePlayer();
+            UpdateAnimationState();
+        }
+        else
+        {
+            anim.SetInteger("state", 0);
+            if (dirX > 0f)
+            {
+                sprite.flipX = true;
+            }
+            else if (dirX < 0f)
+            {
+                sprite.flipX = false;
+            }
+        }
+
+        
     }
 
     private void MovePlayer()
     {
-        dirX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
         if (Input.GetButton("Jump") && IsGrounded())
         {
@@ -57,29 +73,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsWalled())
         {
-
             if (Input.GetButton("Jump") && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
-            else if (Input.GetAxisRaw("Vertical") == 1)
+            else if (Input.GetButton("Jump"))
             {
-                Debug.Log("Climbing");
                 rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
             }
-            
         }
-        else if (isClimbing && IsGrounded())
-        {
-            isClimbing = false;
-            rb.AddForce(new Vector2(0, 0.5f), ForceMode2D.Impulse);
-            Debug.Log("BUG");
-        }
-        else
-        {
-            isClimbing = false;
-        }
-
     }
 
     
