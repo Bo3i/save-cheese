@@ -89,6 +89,7 @@ public class PlayerDigging : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(anim.GetInteger("state"));
         SetTilemap();
         Dig();
     }
@@ -282,7 +283,6 @@ public class PlayerDigging : MonoBehaviour
                 if (retDugTile(cell) != null)
                 {
                     digging = true;
-                    //itemCollector.UpdateInventory(retDugTile(cell));
                     int an = UpdateAimation(dir);
                     tilemap.SetTileFlags(cell, TileFlags.None);
                     StartCoroutine(Fade(cell, an, tilemap));
@@ -299,7 +299,7 @@ public class PlayerDigging : MonoBehaviour
         for (float alpha = 1f; alpha >= 0; alpha -= 0.015f)
         {
             anim.SetInteger("state", an);
-            //Debug.Log("Fading");
+            Debug.Log(an);
             c.a = alpha;
             tilemap.SetColor(cell,c);
             yield return null;
