@@ -7,8 +7,9 @@ using UnityEngine.UIElements;
 public class PlayerDigging : MonoBehaviour
 {
     private Animator anim;
-    private Rigidbody2D rb;
-    private Transform player;
+    private ItemCollector itemCollector;
+    //private Rigidbody2D rb;
+    //private Transform player;
 
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase tile;
@@ -33,8 +34,9 @@ public class PlayerDigging : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Transform>();
+        itemCollector = GetComponent<ItemCollector>();
+        //rb = GetComponent<Rigidbody2D>();
+        //player = GetComponent<Transform>();
         digging = false;
     }
 
@@ -42,6 +44,11 @@ public class PlayerDigging : MonoBehaviour
     private void Update()
     {
         Dig();
+    }
+
+    private TileBase retDugTile(Vector3Int cell)
+    {
+        return tilemap.GetTile(cell);
     }
 
     private void UpdateNeighbours(Vector3Int tile)
@@ -100,9 +107,10 @@ public class PlayerDigging : MonoBehaviour
                 
                 cell.x += (int)dir.x;
                 cell.y += (int)dir.y;
-                if (tilemap.GetTile(cell) != null)
+                if (retDugTile(cell) != null)
                 {
                     digging = true;
+                    itemCollector.UpdateInventory(retDugTile(cell));
                     int an = UpdateAimation(dir);
                     tilemap.SetTileFlags(cell, TileFlags.None);
                     StartCoroutine(Fade(cell, an));
