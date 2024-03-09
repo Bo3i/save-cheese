@@ -82,7 +82,7 @@ public class ItemCollector : MonoBehaviour
                 }
                 if (newObject != null)
                 {
-                    newObject.GetComponent<Rigidbody2D>().AddForce(dir * throwStrengt, ForceMode2D.Impulse);
+                    newObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dir.x * throwStrengt + 0.5f * rb.velocity.x, dir.y * throwStrengt + 0.5f * rb.velocity.y), ForceMode2D.Impulse);
                 }
             }
         }
