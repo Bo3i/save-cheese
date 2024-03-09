@@ -164,14 +164,14 @@ public class PlayerDigging : MonoBehaviour
             yield return null;
         }
         anim.SetInteger("state", 0);
-        CreateItem(cell);
+        CreateItem(cell, tilemap);
         tilemap.SetTile(cell, null);
         UpdateNeighbours(cell, tilemap);
         digging = false;
         
     }
 
-    private void CreateItem(Vector3Int cell)
+    private void CreateItem(Vector3Int cell, Tilemap tilemap)
     {
         if (tilemap == null) return;
         if (tilemap.GetTile(cell) != null)
