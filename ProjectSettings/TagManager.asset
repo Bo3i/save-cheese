@@ -52,6 +52,9 @@ TagManager:
   - name: Climb
     uniqueID: 3765482243
     locked: 0
+  - name: Item
+    uniqueID: 860284829
+    locked: 0
   - name: Foreground
     uniqueID: 1347190349
     locked: 0
