@@ -7,6 +7,11 @@ TagManager:
   - Cherry
   - Trap
   - Diggable
+  - Mouse
+  - Fuell
+  - Resource
+  - FuellTilemap
+  - ResourceTilemap
   layers:
   - Default
   - TransparentFX
@@ -15,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Item
   - 
   - 
   - 
