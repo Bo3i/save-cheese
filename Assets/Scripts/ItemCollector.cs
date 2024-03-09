@@ -20,14 +20,17 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private float throwStrengt = 5f;
 
     private Rigidbody2D rb;
-    
+    private BoxCollider2D coll;
+    private LayerMask jumpableGround;
+
     public int[] inventory = new int[3];
     private int inventorySize = 3;
     private enum ItemType { fuellCheese, materialCheese, mice }
 
     private void Start()
     {
-
+        jumpableGround = LayerMask.GetMask("Ground");
+        coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         inventory[(int)ItemType.fuellCheese] = 0;
         inventory[(int)ItemType.materialCheese] = 0;
@@ -52,34 +55,47 @@ public class ItemCollector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q)) 
         {
             Object newObject = null;
-            Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
-            if (dir.x == 0 && dir.y == 0)
+            Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
+            if (!GetNeighbour(dir))
             {
-                dir = new Vector2(0, 1);
-            }
-            if (inventory[(int)ItemType.fuellCheese] > 0)
-            {
-                inventory[(int)ItemType.fuellCheese]--;
-                fuelCheeses[inventory[(int)ItemType.fuellCheese]].enabled = false;
-                newObject = Instantiate(FuellItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
-            }
-            else if (inventory[(int)ItemType.materialCheese] > 0)
-            {
-                inventory[(int)ItemType.materialCheese]--;
-                materialCheeses[inventory[(int)ItemType.materialCheese]].enabled = false;
-                newObject = Instantiate(ResourceItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
-            }
-            else if (inventory[(int)ItemType.mice] > 0)
-            {
-                inventory[(int)ItemType.mice]--;
-                mice[inventory[(int)ItemType.mice]].enabled = false;
-                newObject = Instantiate(Mouse, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
-            }
-            if (newObject != null)
-            {
-                newObject.GetComponent<Rigidbody2D>().AddForce(dir * throwStrengt, ForceMode2D.Impulse);
+                if (dir.x == 0 && dir.y == 0)
+                {
+                    dir = new Vector2(0, 1);
+                }
+                if (inventory[(int)ItemType.fuellCheese] > 0)
+                {
+                    inventory[(int)ItemType.fuellCheese]--;
+                    fuelCheeses[inventory[(int)ItemType.fuellCheese]].enabled = false;
+                    newObject = Instantiate(FuellItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+                }
+                else if (inventory[(int)ItemType.materialCheese] > 0)
+                {
+                    inventory[(int)ItemType.materialCheese]--;
+                    materialCheeses[inventory[(int)ItemType.materialCheese]].enabled = false;
+                    newObject = Instantiate(ResourceItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+                }
+                else if (inventory[(int)ItemType.mice] > 0)
+                {
+                    inventory[(int)ItemType.mice]--;
+                    mice[inventory[(int)ItemType.mice]].enabled = false;
+                    newObject = Instantiate(Mouse, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+                }
+                if (newObject != null)
+                {
+                    newObject.GetComponent<Rigidbody2D>().AddForce(dir * throwStrengt, ForceMode2D.Impulse);
+                }
             }
         }
+    }
+
+    private bool GetNeighbour(Vector2 dir)
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, dir, 1f, jumpableGround);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.right, .1f, jumpableGround) || Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.left, .1f, jumpableGround);
     }
 
     public void UpdateInventoryUI()
