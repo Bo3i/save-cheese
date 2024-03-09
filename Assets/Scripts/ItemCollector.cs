@@ -56,12 +56,12 @@ public class ItemCollector : MonoBehaviour
         {
             Object newObject = null;
             Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
+            if (dir.x == 0 && dir.y == 0)
+            {
+                dir = new Vector2(0, 1);
+            }
             if (!GetNeighbour(dir))
             {
-                if (dir.x == 0 && dir.y == 0)
-                {
-                    dir = new Vector2(0, 1);
-                }
                 if (inventory[(int)ItemType.fuellCheese] > 0)
                 {
                     inventory[(int)ItemType.fuellCheese]--;
