@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 public class ItemCollector : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private Image[] materialCheeses;
     [SerializeField] private Image[] mice;
 
+    [SerializeField] private Object FuellItem;
+    [SerializeField] private Object ResourceItem;
+    [SerializeField] private Object Mouse;
+
+    [SerializeField] private float throwStrengt = 5f;
+
     private Rigidbody2D rb;
     
     public int[] inventory = new int[3];
@@ -20,6 +27,7 @@ public class ItemCollector : MonoBehaviour
 
     private void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         inventory[(int)ItemType.fuellCheese] = 0;
         inventory[(int)ItemType.materialCheese] = 0;
@@ -34,45 +42,45 @@ public class ItemCollector : MonoBehaviour
 
     private void Update()
     {
+        DropItem();
         playerPos.text = "X: " + (int)transform.position.x + " Y: " + (int)transform.position.y + " Vel: " + rb.velocity;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    
+    private void DropItem()
     {
-        if (!CheckInventory() && inventory[(int)ItemType.fuellCheese] == 0 && inventory[(int)ItemType.fuellCheese] == 0 && collision.gameObject.CompareTag("Mouse"))
+        if (Input.GetKeyDown(KeyCode.Q)) 
         {
-                Destroy(collision.gameObject);
-                inventory[(int)ItemType.mice]++;
-                UpdateInventoryUI();
+            Object newObject = null;
+            Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+            if (dir.x == 0 && dir.y == 0)
+            {
+                dir = new Vector2(0, 1);
+            }
+            if (inventory[(int)ItemType.fuellCheese] > 0)
+            {
+                inventory[(int)ItemType.fuellCheese]--;
+                fuelCheeses[inventory[(int)ItemType.fuellCheese]].enabled = false;
+                newObject = Instantiate(FuellItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+            }
+            else if (inventory[(int)ItemType.materialCheese] > 0)
+            {
+                inventory[(int)ItemType.materialCheese]--;
+                materialCheeses[inventory[(int)ItemType.materialCheese]].enabled = false;
+                newObject = Instantiate(ResourceItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+            }
+            else if (inventory[(int)ItemType.mice] > 0)
+            {
+                inventory[(int)ItemType.mice]--;
+                mice[inventory[(int)ItemType.mice]].enabled = false;
+                newObject = Instantiate(Mouse, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
+            }
+            if (newObject != null)
+            {
+                newObject.GetComponent<Rigidbody2D>().AddForce(dir * throwStrengt, ForceMode2D.Impulse);
+            }
         }
-        
     }
-
-    public void UpdateInventory(TileBase tile)
-    {
-        if (!CheckInventory())
-        {
-            if (inventory[(int)ItemType.materialCheese] == 0 && tile.name == "fuellCheese")
-            {
-                inventory[(int)ItemType.fuellCheese]++;
-                UpdateInventoryUI();
-            }
-            else if (inventory[(int)ItemType.fuellCheese] == 0 && tile.name == "materialCheese")
-            {
-                inventory[(int)ItemType.materialCheese]++;
-                UpdateInventoryUI();
-            }
-            else if ((tile.name == "fuellCheese" && inventory[(int)ItemType.materialCheese] != 0) || (tile.name == "materialCheese" && inventory[(int)ItemType.fuellCheese] != 0))
-            {
-                inventoryUI.text = "Can't pick up two different resources!";
-            }
-        }
-        else if(inventoryUI.text != "Can't pick up two different resources!")
-        {
-            inventoryUI.text = "Inventory Full!";
-        }
-    }
-
-   
 
     public void UpdateInventoryUI()
     {
@@ -99,20 +107,19 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
-    private bool CheckInventory()
+    public bool CheckInventory()
     {
         int total = 0;
         bool full = false;
-        for(int i = 0; i < inventory.Length; i++)
+        for (int i = 0; i < inventory.Length; i++)
         {
             total += inventory[i];
         }
-        if(total == inventorySize)
+        if (total == inventorySize)
         {
             full = true;
         }
         return full;
     }
 
-    
 }

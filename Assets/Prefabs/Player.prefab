@@ -228,6 +228,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  FuellItem: {fileID: 0}
+  ResourceItem: {fileID: 0}
+  Mouse: {fileID: 0}
+  throwStrengt: 5
+  inventory: 000000000000000000000000
 --- !u!114 &8012449103845856297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99b5b6ffacc8964d805cdd4cfc56a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  groundTilemap: {fileID: 0}
+  resourcesTilemap: {fileID: 0}
+  fuellTilemap: {fileID: 0}
   tile: {fileID: 11400000, guid: 250f6b903e11b5142ad219b6f5aaa1d0, type: 2}
   dirtLeftTop: {fileID: 11400000, guid: 7b63c7914d44ff648959b0011c0ece9b, type: 2}
   dirtRightTop: {fileID: 11400000, guid: 21567d6851cacca44808ad3b655dd5cb, type: 2}
@@ -263,3 +270,5 @@ MonoBehaviour:
   dirtLeftBottom: {fileID: 11400000, guid: 9dfecb978fcc91a4ea60df38afb8e570, type: 2}
   dirtRightBottom: {fileID: 11400000, guid: f34adabd82fe9c24a8f0d2cebf03d847, type: 2}
   dirtMiddle: {fileID: 11400000, guid: 824f5a1658475eb43a006abd1242dcb9, type: 2}
+  FuellItem: {fileID: 0}
+  ResourceItem: {fileID: 0}
