@@ -160,7 +160,7 @@ public class PlayerDigging : MonoBehaviour
             if (fuellNeighbourTileUp == fuellcheeseMiddle)fuellTilemap.SetTile(neighbourCells[0], fuellcheeseBottom);
             if (fuellNeighbourTileUp == fuellcheeseLeft) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseLeftBottom);
             if (fuellNeighbourTileUp == fuellcheeseRight) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseRightBottom);
-            if (fuellNeighbourTileUp == fuellcheeseTop) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseBottomLeftRight);
+            if (fuellNeighbourTileUp == fuellcheeseTop) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseTopBottom);
             if (fuellNeighbourTileUp == fuellcheeseLeftTop) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseLeftTopBottom);
             if (fuellNeighbourTileUp == fuellcheeseRightTop) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseRightTopBottom);
             if (fuellNeighbourTileUp == fuellcheeseTopLeftRight) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseAll);
@@ -169,7 +169,7 @@ public class PlayerDigging : MonoBehaviour
             if (resourceNeighbourTileUp == resourcecheeseMiddle) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseBottom);
             if (resourceNeighbourTileUp == resourcecheeseLeft) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseLeftBottom);
             if (resourceNeighbourTileUp == resourcecheeseRight) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseRightBottom);
-            if (resourceNeighbourTileUp == resourcecheeseTop) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseBottomLeftRight);
+            if (resourceNeighbourTileUp == resourcecheeseTop) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseTopBottom);
             if (resourceNeighbourTileUp == resourcecheeseLeftTop) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseLeftTopBottom);
             if (resourceNeighbourTileUp == resourcecheeseRightTop) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseRightTopBottom);
             if (resourceNeighbourTileUp == resourcecheeseTopLeftRight) resourcesTilemap.SetTile(neighbourCells[0], resourcecheeseAll);
@@ -246,14 +246,14 @@ public class PlayerDigging : MonoBehaviour
             if (cheeseNeighbourTileRight == cheeseRightTopBottom) groundTilemap.SetTile(neighbourCells[3], cheeseAll);
             if (cheeseNeighbourTileRight == cheeseTopBottom) groundTilemap.SetTile(neighbourCells[3], cheeseLeftTopBottom);
 
-            if (fuellNeighbourTileRight == fuellcheeseMiddle) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseLeft);
-            if (fuellNeighbourTileRight == fuellcheeseTop) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseLeftTop);
-            if (fuellNeighbourTileRight == fuellcheeseBottom) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseLeftBottom);
-            if (fuellNeighbourTileRight == fuellcheeseRight) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseLeftRight);
-            if (fuellNeighbourTileRight == fuellcheeseRightTop) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseTopLeftRight);
-            if (fuellNeighbourTileRight == fuellcheeseRightBottom) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseBottomLeftRight);
-            if (fuellNeighbourTileRight == fuellcheeseRightTopBottom) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseAll);
-            if (fuellNeighbourTileRight == fuellcheeseTopBottom) fuellTilemap.SetTile(neighbourCells[3], resourcecheeseLeftTopBottom);
+            if (fuellNeighbourTileRight == fuellcheeseMiddle) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseLeft);
+            if (fuellNeighbourTileRight == fuellcheeseTop) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseLeftTop);
+            if (fuellNeighbourTileRight == fuellcheeseBottom) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseLeftBottom);
+            if (fuellNeighbourTileRight == fuellcheeseRight) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseLeftRight);
+            if (fuellNeighbourTileRight == fuellcheeseRightTop) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseTopLeftRight);
+            if (fuellNeighbourTileRight == fuellcheeseRightBottom) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseBottomLeftRight);
+            if (fuellNeighbourTileRight == fuellcheeseRightTopBottom) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseAll);
+            if (fuellNeighbourTileRight == fuellcheeseTopBottom) fuellTilemap.SetTile(neighbourCells[3], fuellcheeseLeftTopBottom);
 
             if (resourceNeighbourTileRight == resourcecheeseMiddle) resourcesTilemap.SetTile(neighbourCells[3], resourcecheeseLeft);
             if (resourceNeighbourTileRight == resourcecheeseTop) resourcesTilemap.SetTile(neighbourCells[3], resourcecheeseLeftTop);
