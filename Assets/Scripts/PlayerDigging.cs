@@ -151,7 +151,7 @@ public class PlayerDigging : MonoBehaviour
             if (cheeseNeighbourTileUp == cheeseMiddle) groundTilemap.SetTile(neighbourCells[0], cheeseBottom);
             if (cheeseNeighbourTileUp == cheeseLeft) groundTilemap.SetTile(neighbourCells[0], cheeseLeftBottom);
             if (cheeseNeighbourTileUp == cheeseRight) groundTilemap.SetTile(neighbourCells[0], cheeseRightBottom);
-            if (cheeseNeighbourTileUp == cheeseTop) groundTilemap.SetTile(neighbourCells[0], cheeseBottomLeftRight);
+            if (cheeseNeighbourTileUp == cheeseTop) groundTilemap.SetTile(neighbourCells[0], cheeseTopBottom);
             if (cheeseNeighbourTileUp == cheeseLeftTop) groundTilemap.SetTile(neighbourCells[0], cheeseLeftTopBottom);
             if (cheeseNeighbourTileUp == cheeseRightTop) groundTilemap.SetTile(neighbourCells[0], cheeseRightTopBottom);
             if (cheeseNeighbourTileUp == cheeseTopLeftRight) groundTilemap.SetTile(neighbourCells[0], cheeseAll);
