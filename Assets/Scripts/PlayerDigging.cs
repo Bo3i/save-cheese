@@ -89,7 +89,7 @@ public class PlayerDigging : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(anim.GetInteger("state"));
+        
         SetTilemap();
         Dig();
     }
@@ -299,7 +299,6 @@ public class PlayerDigging : MonoBehaviour
         for (float alpha = 1f; alpha >= 0; alpha -= 0.015f)
         {
             anim.SetInteger("state", an);
-            Debug.Log(an);
             c.a = alpha;
             tilemap.SetColor(cell,c);
             yield return null;
