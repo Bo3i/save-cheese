@@ -18,7 +18,7 @@ public class MiceCartController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isFull);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

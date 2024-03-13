@@ -11,10 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D coll;
     private Animator anim;
 
-
     private float dirX = 0;
     private float dirY = 0;
-
 
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
@@ -55,9 +53,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 sprite.flipX = false;
             }
-        }
-
-        
+        } 
     }
 
     private void MovePlayer()
