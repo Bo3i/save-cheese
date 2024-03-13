@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -529485053
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd5503c3defeea84f865c6661f9d2fbd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd965feeb6c11d647b8fd3fe85571853, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -176,6 +176,7 @@ MonoBehaviour:
   fuel: 300
   fuelConsumption: 0.01
   MiceCart: {fileID: 4051712060100689506, guid: c5cf9c413914e334e8ff6277aaa2e38c, type: 3}
+  offset: 3
 --- !u!95 &4998356155128389375
 Animator:
   serializedVersion: 5
