@@ -16,6 +16,7 @@ public class PlayerDigging : MonoBehaviour
     [SerializeField] private Tilemap fuellTilemap;
 
     [SerializeField] private TileBase tile;
+    [SerializeField] private TileBase noEntranceCheese;
 
     [SerializeField] private TileBase cheeseLeftTop;
     [SerializeField] private TileBase cheeseRightTop;
@@ -280,7 +281,7 @@ public class PlayerDigging : MonoBehaviour
                 
                 cell.x += (int)dir.x;
                 cell.y += (int)dir.y;
-                if (retDugTile(cell) != null)
+                if (retDugTile(cell) != null && retDugTile(cell) != noEntranceCheese)
                 {
                     digging = true;
                     int an = UpdateAimation(dir);

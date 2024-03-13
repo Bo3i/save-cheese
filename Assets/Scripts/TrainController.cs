@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class TrainController : MonoBehaviour
 {
-
     [SerializeField] private float speed = 0.1f;
     [SerializeField] private float fuel = 300f;
     [SerializeField] private float fuelConsumption = 0.01f;
     [SerializeField] Object MiceCart;
+    [SerializeField] private float offset = 1.5f;
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
+    private Animator anim;
     private int resourceCount;
     private int maxCarts = 5;
     private int currentCarts;
@@ -22,6 +23,7 @@ public class TrainController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
         carts = new Object[maxCarts];
         currentCarts = 0;
         resourceCount = 0;
@@ -39,10 +41,12 @@ public class TrainController : MonoBehaviour
         {
             rb.velocity = new Vector2(speed, 0);
             fuel -= fuelConsumption;
+            anim.SetBool("Moving", true);
         }
         else
         {
             rb.velocity = new Vector2(0, 0);
+            anim.SetBool("Moving", false);
         }
         MoveCarts();
     }
@@ -51,8 +55,11 @@ public class TrainController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fuell"))
         {
-            fuel += 100;
-            Destroy(collision.gameObject);
+            if (fuel < 300)
+            {
+                fuel += 100;
+                Destroy(collision.gameObject);
+            }
         }
         else if(collision.gameObject.CompareTag("Resource"))
         {
@@ -86,8 +93,8 @@ public class TrainController : MonoBehaviour
 
     private void AddCart()
     {
-        carts[currentCarts] = Instantiate(MiceCart, new Vector3(transform.position.x - (currentCarts+1) * 1.5f, transform.position.y, transform.position.z), Quaternion.identity);
-        currentCarts++;
+            carts[currentCarts] = Instantiate(MiceCart, new Vector3(transform.position.x - 2 * currentCarts - offset, transform.position.y, transform.position.z), Quaternion.identity);
+            currentCarts++;  
     }
 
     private bool TrainHasSpace()
