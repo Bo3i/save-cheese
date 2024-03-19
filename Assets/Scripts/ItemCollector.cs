@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
+using System.Globalization;
 
 public class ItemCollector : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class ItemCollector : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private LayerMask jumpableGround;
+
+    private bool drop = false;
 
     public int[] inventory = new int[3];
     private int inventorySize = 3;
@@ -49,11 +53,16 @@ public class ItemCollector : MonoBehaviour
         playerPos.text = "X: " + (int)transform.position.x + " Y: " + (int)transform.position.y + " Vel: " + rb.velocity;
     }
     
-    
+    public void OnItemDrop(InputAction.CallbackContext context)
+    {
+        drop = context.action.triggered;
+    }
+
     private void DropItem()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) 
+        if (drop) 
         {
+            drop = false;
             Object newObject = null;
             Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
             if (dir.x == 0 && dir.y == 0)

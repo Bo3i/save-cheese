@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
@@ -29,6 +30,16 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+    }
+
+    public void OnMove(InputAction.CallbackContext callback)
+    {
+        Debug.Log("Move");
+    }
+
+    public void OnJump(InputAction.CallbackContext callback)
+    {
+        Debug.Log("Jump");
     }
 
     // Update is called once per frame

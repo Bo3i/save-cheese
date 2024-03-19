@@ -53,27 +53,30 @@ public class TrainController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Rigidbody2D irb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (irb.velocity.x != 0 || irb.velocity.y != 0)
+        if (collision == null)
         {
-            if (collision.gameObject.CompareTag("Fuell"))
+            Rigidbody2D irb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (irb.velocity.x != 0 || irb.velocity.y != 0)
             {
-                if (fuel < 300)
+                if (collision.gameObject.CompareTag("Fuell"))
                 {
-                    fuel += 100;
-                    Destroy(collision.gameObject);
-                }
-            }
-            else if (collision.gameObject.CompareTag("Resource"))
-            {
-                if (resourceCount < 3 && TrainHasSpace())
-                {
-                    resourceCount++;
-                    Destroy(collision.gameObject);
-                    if (resourceCount == 3)
+                    if (fuel < 300)
                     {
-                        AddCart();
-                        resourceCount = 0;
+                        fuel += 100;
+                        Destroy(collision.gameObject);
+                    }
+                }
+                else if (collision.gameObject.CompareTag("Resource"))
+                {
+                    if (resourceCount < 3 && TrainHasSpace())
+                    {
+                        resourceCount++;
+                        Destroy(collision.gameObject);
+                        if (resourceCount == 3)
+                        {
+                            AddCart();
+                            resourceCount = 0;
+                        }
                     }
                 }
             }

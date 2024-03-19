@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5173481884228226150}
   - component: {fileID: 5294586088505797068}
   - component: {fileID: 5115250646395426137}
-  - component: {fileID: 7723984648666795326}
   - component: {fileID: 8981292342386520412}
+  - component: {fileID: 7723984648666795326}
   - component: {fileID: 641893576390703568}
   - component: {fileID: 8012449103845856297}
   - component: {fileID: 6680050000125373866}
@@ -164,24 +164,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6975558, y: 0.8330169}
   m_EdgeRadius: 0
---- !u!114 &7723984648666795326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2533838662824697970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e7b2cba64b22c4698f6d953be58ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpableGround:
-    serializedVersion: 2
-    m_Bits: 64
-  moveSpeed: 7
-  jumpForce: 14
-  crawlSpeed: 7
 --- !u!95 &8981292342386520412
 Animator:
   serializedVersion: 5
@@ -203,6 +185,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7723984648666795326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533838662824697970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e7b2cba64b22c4698f6d953be58ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 7
+  jumpForce: 14
+  crawlSpeed: 7
 --- !u!114 &641893576390703568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   resourcesTilemap: {fileID: 0}
   fuellTilemap: {fileID: 0}
   tile: {fileID: 11400000, guid: 250f6b903e11b5142ad219b6f5aaa1d0, type: 2}
+  noEntranceCheese: {fileID: 0}
   cheeseLeftTop: {fileID: 11400000, guid: f619313f9019a4f2a93f826af0008b79, type: 2}
   cheeseRightTop: {fileID: 11400000, guid: f5a1a7ef647e241c3acd8b80c0e92746, type: 2}
   cheeseLeft: {fileID: 11400000, guid: 21bc6b3eb3a73464baf101d470b11bdf, type: 2}

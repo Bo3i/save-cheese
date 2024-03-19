@@ -29,15 +29,18 @@ public class MiceCartController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Rigidbody2D irb = collision.GetComponent<Rigidbody2D>();
-        if (irb.velocity.x != 0 || irb.velocity.y != 0)
+        if (irb != null)
         {
-            if (collision.gameObject.CompareTag("Mouse"))
+            if (irb.velocity.x != 0 || irb.velocity.y != 0)
             {
-                if (!isFull)
+                if (collision.gameObject.CompareTag("Mouse"))
                 {
-                    isFull = true;
-                    sprite.color = Color.red;
-                    AddMouse(collision.gameObject);
+                    if (!isFull)
+                    {
+                        isFull = true;
+                        sprite.color = Color.red;
+                        AddMouse(collision.gameObject);
+                    }
                 }
             }
         }
