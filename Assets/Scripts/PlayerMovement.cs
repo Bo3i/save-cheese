@@ -12,8 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D coll;
     private Animator anim;
 
-    private float dirX = 0;
-    private float dirY = 0;
+    private Vector2 dir = new Vector2(0,0);
+    private bool jump = false;
+    private bool dig = false;
 
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
@@ -34,20 +35,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext callback)
     {
-        Debug.Log("Move");
+        dir = callback.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext callback)
     {
-        Debug.Log("Jump");
+        jump = callback.action.triggered;
+    }
+
+    public void OnDig(InputAction.CallbackContext callback)
+    {
+        dig = callback.action.triggered;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        dirX = Input.GetAxis("Horizontal");
-
-        if (!Input.GetKey(KeyCode.E))
+        if (!dig)
         {
             ClimbCheck();
             MovePlayer();
@@ -56,11 +60,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             anim.SetInteger("state", 0);
-            if (dirX > 0f)
+            if (dir.x > 0f)
             {
                 sprite.flipX = true;
             }
-            else if (dirX < 0f)
+            else if (dir.x < 0f)
             {
                 sprite.flipX = false;
             }
@@ -69,8 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
-        if (Input.GetButton("Jump") && IsGrounded())
+        rb.velocity = new Vector2(dir.x * moveSpeed, rb.velocity.y);
+        if (jump && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
@@ -80,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsWalled())
         {
-            if (Input.GetButton("Jump") && IsGrounded())
+            if (jump && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
-            else if (Input.GetButton("Jump"))
+            else if (jump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, crawlSpeed);
             }
@@ -96,14 +100,13 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
-        dirY = rb.velocity.y;
 
-        if (dirX > 0f)
+        if (rb.velocity.x > 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
         }
-        else if (dirX < 0f)
+        else if (rb.velocity.x < 0f)
         {
             state = MovementState.running;
             sprite.flipX = false;
@@ -113,11 +116,11 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.idle;
         }
 
-        if (dirY > 0.1f)
+        if (rb.velocity.y > 0.1f)
         {
             state = MovementState.jumping;
         }
-        else if (dirY < -0.1f)
+        else if (rb.velocity.y < -0.1f)
         {
             state = MovementState.falling;
         }
