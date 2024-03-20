@@ -5,13 +5,8 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class PlayerDigging : MonoBehaviour
+public class UpdateTiles : MonoBehaviour
 {
-    private Animator anim;
-    private ItemCollector itemCollector;
-    //private Rigidbody2D rb;
-    //private Transform player;
-
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap resourcesTilemap;
     [SerializeField] private Tilemap fuellTilemap;
@@ -70,69 +65,26 @@ public class PlayerDigging : MonoBehaviour
     [SerializeField] private TileBase resourcecheeseLeftTopBottom;
     [SerializeField] private TileBase resourcecheeseRightTopBottom;
 
-    [SerializeField] private Object FuellItem;
-    [SerializeField] private Object ResourceItem;
 
     private Tilemap tilemap;
-    private bool digging;
-    private bool digPressed = false;
-    private Vector2 dir = new Vector2(0,0);
 
     private enum Neighbour { up, down, left, right }
     private enum TileType
     {
         dirtLeftTop, dirtRightTop, dirtLeft, dirtRight, dirtBottom, dirtTop, dirtLeftBottom, dirtRightBottom, dirtMiddle
     }
-    
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-        itemCollector = GetComponent<ItemCollector>();
-        digging = false;
-    }
-
-    private void Update()
-    {
-        SetTilemap();
-        Dig();
-    }
-
-    private void SetTilemap()
-    {
-        if (groundTilemap.GetTile(groundTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"),0))) != null)
-        {
-            tilemap = groundTilemap;
-        }
-        else if (resourcesTilemap.GetTile(resourcesTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"),0))) != null)
-        {
-            tilemap = resourcesTilemap;
-        }
-        else if (fuellTilemap.GetTile(fuellTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"), 0))) != null)
-        {
-            tilemap = fuellTilemap;
-        }
-        else
-        {
-            tilemap = null;
-        }
-    } 
-
-    private TileBase retDugTile(Vector3Int cell)
-    {
-        return tilemap.GetTile(cell);
-    }
 
     public void UpdateNeighbours(Vector3Int tile)
     {
         //Debug.Log("Neighbours updated");
-         
+
         Vector3Int[] neighbourCells = new Vector3Int[4];
         neighbourCells[0] = new Vector3Int(tile.x, tile.y + 1, tile.z);
         neighbourCells[1] = new Vector3Int(tile.x, tile.y - 1, tile.z);
         neighbourCells[2] = new Vector3Int(tile.x - 1, tile.y, tile.z);
-        neighbourCells[3] = new Vector3Int(tile.x + 1, tile.y, tile.z);    
-        
-        
+        neighbourCells[3] = new Vector3Int(tile.x + 1, tile.y, tile.z);
+
+
 
         TileBase cheeseNeighbourTileUp = groundTilemap.GetTile(neighbourCells[0]);
         TileBase cheeseNeighbourTileDown = groundTilemap.GetTile(neighbourCells[1]);
@@ -160,7 +112,7 @@ public class PlayerDigging : MonoBehaviour
             if (cheeseNeighbourTileUp == cheeseTopLeftRight) groundTilemap.SetTile(neighbourCells[0], cheeseAll);
             if (cheeseNeighbourTileUp == cheeseLeftRight) groundTilemap.SetTile(neighbourCells[0], cheeseBottomLeftRight);
 
-            if (fuellNeighbourTileUp == fuellcheeseMiddle)fuellTilemap.SetTile(neighbourCells[0], fuellcheeseBottom);
+            if (fuellNeighbourTileUp == fuellcheeseMiddle) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseBottom);
             if (fuellNeighbourTileUp == fuellcheeseLeft) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseLeftBottom);
             if (fuellNeighbourTileUp == fuellcheeseRight) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseRightBottom);
             if (fuellNeighbourTileUp == fuellcheeseTop) fuellTilemap.SetTile(neighbourCells[0], fuellcheeseTopBottom);
@@ -207,7 +159,7 @@ public class PlayerDigging : MonoBehaviour
             if (resourceNeighbourTileDown == resourcecheeseBottomLeftRight) resourcesTilemap.SetTile(neighbourCells[1], resourcecheeseAll);
             if (resourceNeighbourTileDown == resourcecheeseLeftRight) resourcesTilemap.SetTile(neighbourCells[1], resourcecheeseTopLeftRight);
         }
-        
+
         if (cheeseNeighbourTileLeft != null || fuellNeighbourTileLeft != null || resourceNeighbourTileLeft != null)
         {
             if (cheeseNeighbourTileLeft == cheeseMiddle) groundTilemap.SetTile(neighbourCells[2], cheeseRight);
@@ -266,98 +218,7 @@ public class PlayerDigging : MonoBehaviour
             if (resourceNeighbourTileRight == resourcecheeseRightBottom) resourcesTilemap.SetTile(neighbourCells[3], resourcecheeseBottomLeftRight);
             if (resourceNeighbourTileRight == resourcecheeseRightTopBottom) resourcesTilemap.SetTile(neighbourCells[3], resourcecheeseAll);
             if (resourceNeighbourTileRight == resourcecheeseTopBottom) resourcesTilemap.SetTile(neighbourCells[3], resourcecheeseLeftTopBottom);
-        }    
-    }
-
-    public void OnDig(InputAction.CallbackContext context)
-    {
-        digPressed = context.action.triggered;
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        dir = context.ReadValue<Vector2>();
-    }
-    private void Dig()
-    {
-        if (tilemap == null) return;
-        Vector3Int cell = tilemap.WorldToCell(transform.position);
-        if (digPressed && dir != new Vector2(0, 0) && !digging)
-        {
-            if ((dir.x != 0 && dir.y == 0) || (dir.x == 0 && dir.y != 0) )
-            {
-                
-                cell.x += (int)dir.x;
-                cell.y += (int)dir.y;
-                if (retDugTile(cell) != null && retDugTile(cell) != noEntranceCheese)
-                {
-                    digging = true;
-                    int an = UpdateAimation(dir);
-                    tilemap.SetTileFlags(cell, TileFlags.None);
-                    StartCoroutine(Fade(cell, an, tilemap));
-                }
-                
-            }
-
         }
     }
 
-    IEnumerator Fade(Vector3Int cell, int an, Tilemap tilemap)
-    {
-        Color c = tilemap.GetColor(cell);
-        for (float alpha = 1f; alpha >= 0; alpha -= 0.015f)
-        {
-            anim.SetInteger("state", an);
-            c.a = alpha;
-            tilemap.SetColor(cell,c);
-            yield return null;
-        }
-        anim.SetInteger("state", 0);
-        CreateItem(cell, tilemap);
-        tilemap.SetTile(cell, null);
-        UpdateNeighbours(cell);
-        digging = false;
-        
-    }
-
-    private void CreateItem(Vector3Int cell, Tilemap tilemap)
-    {
-        if (tilemap == null) return;
-        if (tilemap.GetTile(cell) != null)
-        {
-            if (tilemap.tag == "FuellTilemap")
-            {
-                Instantiate(FuellItem, tilemap.GetCellCenterWorld(cell), Quaternion.identity);
-            }
-            else if (tilemap.tag == "ResourceTilemap")
-            {
-                Instantiate(ResourceItem, tilemap.GetCellCenterWorld(cell), Quaternion.identity);
-            }
-        }
-    }
-
-    private int UpdateAimation(Vector2 dir)
-    {
-        int ret = 0;
-        if (digging)
-        {
-            if (dir.x == 1)
-            {
-                ret = 5;
-            }
-            else if (dir.x == -1)
-            {
-                ret = 5;
-            }
-            else if (dir.y == 1)
-            {
-                ret = 7;
-            }
-            else if (dir.y == -1)
-            {
-                ret = 8;
-            }
-        }
-        return ret;
-    }   
 }

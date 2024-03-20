@@ -15,6 +15,10 @@ public class ItemCollision : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision == null)
+        {
+            return;
+        }
         if (!pl.CheckInventory() && inventory[(int)ItemType.materialCheese] == 0 && inventory[(int)ItemType.fuellCheese] == 0 && collision.gameObject.CompareTag("Mouse"))
         {
             Destroy(collision.gameObject);
