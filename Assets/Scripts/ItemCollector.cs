@@ -130,6 +130,15 @@ public class ItemCollector : MonoBehaviour
                 mice[i].enabled = true;
             }
         }
+        else 
+        {             
+            for (int i = 0; i < fuelCheeses.Length; i++)
+            {
+                fuelCheeses[i].enabled = false;
+                materialCheeses[i].enabled = false;
+                mice[i].enabled = false;
+            }
+        }   
     }
 
     public bool CheckInventory()
