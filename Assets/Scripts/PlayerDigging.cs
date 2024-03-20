@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerDigging : MonoBehaviour
@@ -74,6 +75,8 @@ public class PlayerDigging : MonoBehaviour
 
     private Tilemap tilemap;
     private bool digging;
+    private bool digPressed = false;
+    private Vector2 dir = new Vector2(0,0);
 
     private enum Neighbour { up, down, left, right }
     private enum TileType
@@ -90,7 +93,6 @@ public class PlayerDigging : MonoBehaviour
 
     private void Update()
     {
-        
         SetTilemap();
         Dig();
     }
@@ -120,7 +122,7 @@ public class PlayerDigging : MonoBehaviour
         return tilemap.GetTile(cell);
     }
 
-    private void UpdateNeighbours(Vector3Int tile)
+    public void UpdateNeighbours(Vector3Int tile)
     {
         //Debug.Log("Neighbours updated");
          
@@ -267,15 +269,21 @@ public class PlayerDigging : MonoBehaviour
         }    
     }
 
+    public void OnDig(InputAction.CallbackContext context)
+    {
+        digPressed = context.action.triggered;
+    }
 
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        dir = context.ReadValue<Vector2>();
+    }
     private void Dig()
     {
         if (tilemap == null) return;
-        Vector2 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector3Int cell = tilemap.WorldToCell(transform.position);
-        if (Input.GetKey(KeyCode.E) && dir != new Vector2(0, 0) && !digging)
+        if (digPressed && dir != new Vector2(0, 0) && !digging)
         {
-            
             if ((dir.x != 0 && dir.y == 0) || (dir.x == 0 && dir.y != 0) )
             {
                 
