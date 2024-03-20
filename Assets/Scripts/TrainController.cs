@@ -53,7 +53,7 @@ public class TrainController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == null)
+        if (collision != null)
         {
             Rigidbody2D irb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (irb.velocity.x != 0 || irb.velocity.y != 0)
