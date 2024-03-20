@@ -44,8 +44,6 @@ public class MiceCartController : MonoBehaviour
                 }
             }
         }
-
-        
     }
 
     public void UpdateAnimation()

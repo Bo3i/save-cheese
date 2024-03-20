@@ -122,7 +122,7 @@ public class PlayerDigging : MonoBehaviour
         return tilemap.GetTile(cell);
     }
 
-    private void UpdateNeighbours(Vector3Int tile)
+    public void UpdateNeighbours(Vector3Int tile)
     {
         //Debug.Log("Neighbours updated");
          

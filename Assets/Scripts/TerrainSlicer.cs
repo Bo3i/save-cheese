@@ -25,14 +25,11 @@ public class TerrainSlicer : MonoBehaviour
         tilemaps[2] = fuellTilemap;
         tilemaps[3] = wallsTilemap;
         lastSliced = 0;
-        lastSlicedPos = -10;
+        lastSlicedPos = -30;
     }
 
     void Update()
     {
-        float x = Time.time - lastSliced;
-        Debug.Log(Time.time);
-        Debug.Log(x);
         Slice();
     }
 
@@ -45,19 +42,21 @@ public class TerrainSlicer : MonoBehaviour
             lastSliced = (int)Time.time;
             for (int i = 0; i < tilemaps.Length; i++)
             {
-                for (int j = 1; j > -50 + 10; j--)
+                for (int j = 1; j > -10; j--)
                 {
-                    tilemaps[i].SetTile(new Vector3Int(lastSlicedPos, j, 0), null);
+                    tilemaps[i].SetTile(new Vector3Int(lastSlicedPos+1, j, 0), null);
                 }
             }
-            
+            lastSlicedPos ++;
         }
     }
+
+    
 
     private bool CanSlice()
     {
         bool ret = false;
-        if (Time.time - lastSliced > slicingTime)
+        if ((int)Time.time - lastSliced > slicingTime)
         {
             ret = true;
         }
