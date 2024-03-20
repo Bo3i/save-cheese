@@ -13,12 +13,14 @@ public class TerrainSlicer : MonoBehaviour
     [SerializeField] private Tilemap wallsTilemap;
 
     private Tilemap[] tilemaps;
+    private UpdateTiles update;
 
     private int lastSliced;
     private int lastSlicedPos;
 
     void Start()
     {
+        update =  GetComponent<UpdateTiles>();
         tilemaps = new Tilemap[4];
         tilemaps[0] = groundTilemap;
         tilemaps[1] = resourcesTilemap;
@@ -37,21 +39,18 @@ public class TerrainSlicer : MonoBehaviour
     {
         if (CanSlice())
         {
-            Debug.Log("Slicing");
-
             lastSliced = (int)Time.time;
             for (int i = 0; i < tilemaps.Length; i++)
             {
-                for (int j = 1; j > -10; j--)
+                for (int j = 1; j > -50; j--)
                 {
+                    update.UpdateNeighbours(new Vector3Int(lastSlicedPos+1, j, 0));
                     tilemaps[i].SetTile(new Vector3Int(lastSlicedPos+1, j, 0), null);
                 }
             }
             lastSlicedPos ++;
         }
     }
-
-    
 
     private bool CanSlice()
     {
