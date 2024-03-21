@@ -45,17 +45,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "d2499383-e542-4bb8-bcd1-ea8a2cb37e4c",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard1",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "82d03be1-ae90-44b5-9f21-37a744d9da44",
                     "path": "<Keyboard>/rightCtrl",
                     "interactions": "",
@@ -67,12 +56,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4a0aaff5-1266-4fe9-8cab-5b5421057bbf",
-                    "path": "<Keyboard>/e",
+                    "id": "13c76cf8-2ab0-4419-adbd-c55dba441bb1",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
-                    "action": "Dig",
+                    "groups": "Keyboard3",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -89,12 +78,12 @@
                 },
                 {
                     "name": "",
-                    "id": "f664b091-91f3-488c-8c9c-0c9ac8ca345e",
-                    "path": "<Keyboard>/q",
+                    "id": "c3784126-d58a-4d70-9f5b-9a8e05950782",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
-                    "action": "Drop",
+                    "groups": "Keyboard3",
+                    "action": "Dig",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -105,6 +94,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard2",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19a893e8-4770-4182-bace-b4dd2feba13a",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard3",
                     "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -126,7 +126,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
+                    "groups": "Keyboard3",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -137,7 +137,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
+                    "groups": "Keyboard3",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -148,7 +148,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
+                    "groups": "Keyboard3",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -159,14 +159,14 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard1",
+                    "groups": "Keyboard3",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "Arrows",
-                    "id": "7cdcd98c-8582-4d99-94fb-c0300a89be44",
+                    "id": "7bed7613-cc11-4879-813b-6719b8057ac5",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -177,7 +177,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "dddbeb02-de31-4735-89e0-6b3773084753",
+                    "id": "44e12419-a43b-4ef5-9ca7-1148a97f139b",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -188,7 +188,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "17a448db-85e0-41ce-a2e9-1a352e5bfb0a",
+                    "id": "d96dcad3-ab29-429d-a429-ff6d9fe0158b",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -199,7 +199,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "b4130249-f002-42c1-8db3-fbe3257b746b",
+                    "id": "acded5f8-6155-43cb-ad22-7f4b6ccf9391",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -210,7 +210,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "0e8f70d3-8966-4a4f-86ea-ac2e3c3bec04",
+                    "id": "f90fce5e-b637-4cdc-876d-2e0da8c41248",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
@@ -224,19 +224,19 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard1",
-            "bindingGroup": "Keyboard1",
+            "name": "Keyboard2",
+            "bindingGroup": "Keyboard2",
             "devices": [
                 {
-                    "devicePath": "<Keyboard>/{Hatswitch}",
-                    "isOptional": false,
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
         },
         {
-            "name": "Keyboard2",
-            "bindingGroup": "Keyboard2",
+            "name": "Keyboard3",
+            "bindingGroup": "Keyboard3",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

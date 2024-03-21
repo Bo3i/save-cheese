@@ -9,11 +9,10 @@ using System.Globalization;
 
 public class ItemCollector : MonoBehaviour
 {
-    [SerializeField] private Text inventoryUI;
-    [SerializeField] private Text playerPos;
-    [SerializeField] private Image[] fuelCheeses;
-    [SerializeField] private Image[] materialCheeses;
-    [SerializeField] private Image[] mice;
+    [SerializeField] private GameObject playerPos;
+    [SerializeField] private GameObject[] fuelCheeses;
+    [SerializeField] private GameObject materialCheeses;
+    [SerializeField] private GameObject mice;
 
     [SerializeField] private Object FuellItem;
     [SerializeField] private Object ResourceItem;
