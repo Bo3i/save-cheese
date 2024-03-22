@@ -16,7 +16,7 @@ public class TerrainSlicer : MonoBehaviour
     private UpdateTiles update;
 
     private int lastSliced;
-    private int lastSlicedPos;
+    public int lastSlicedPos;
 
     void Start()
     {

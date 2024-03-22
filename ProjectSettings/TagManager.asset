@@ -19,6 +19,7 @@ TagManager:
   - ResourceP2
   - MouseP1
   - MouseP2
+  - TrainResource
   layers:
   - Default
   - TransparentFX

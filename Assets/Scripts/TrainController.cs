@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrainController : MonoBehaviour
 {
@@ -11,19 +13,22 @@ public class TrainController : MonoBehaviour
     [SerializeField] private float offset = 1.5f;
 
     private Rigidbody2D rb;
-    private BoxCollider2D boxCollider;
     private Animator anim;
+    private Slider fuelSlider;
+    private Image[] trainResourcesUI = new Image[3];
     private int resourceCount;
     private int maxCarts = 5;
     private int currentCarts;
     private Object[] carts;
-
+    private TerrainSlicer ts;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
+        ts = GetComponent<TerrainSlicer>();
+        fuelSlider = GameObject.Find("TrainFuellProgressBar").GetComponent<Slider>();
+        FindUIResources();
         carts = new Object[maxCarts];
         currentCarts = 0;
         resourceCount = 0;
@@ -33,6 +38,40 @@ public class TrainController : MonoBehaviour
     void Update()
     {
         Move();
+        ProgressBarrUpdate();
+        SlicerCheck();
+    }
+
+    private void SlicerCheck()
+    {
+        if (currentCarts > 0 && ts.lastSlicedPos == (int)((GameObject)carts[currentCarts - 1]).transform.position.x - 1)
+        {
+            RemoveCart();
+        }
+    }
+
+    private void FindUIResources()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            trainResourcesUI[i] = GameObject.Find("TrainResource (" + i + ")").GetComponent<Image>();
+        }
+    }
+
+    private void ProgressBarrUpdate()
+    {
+        fuelSlider.value = fuel / 300;
+        for (int i = 0; i < 3; i++)
+        {
+            if (i < resourceCount)
+            {
+                trainResourcesUI[i].enabled = true;
+            }
+            else
+            {
+                trainResourcesUI[i].enabled = false;
+            }
+        }
     }
 
     private void Move()
@@ -50,6 +89,8 @@ public class TrainController : MonoBehaviour
         }
         MoveCarts();
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -103,6 +144,15 @@ public class TrainController : MonoBehaviour
     {
             carts[currentCarts] = Instantiate(MiceCart, new Vector3(transform.position.x - 2 * currentCarts - offset, transform.position.y, transform.position.z), Quaternion.identity);
             currentCarts++;  
+    }
+
+    private void RemoveCart()
+    {
+        if (currentCarts > 0)
+        {
+            Destroy((GameObject)carts[currentCarts-1]);
+            currentCarts--;
+        }
     }
 
     private bool TrainHasSpace()

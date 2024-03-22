@@ -40,9 +40,16 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CanUpdate())
+        if (itemCollectorP1 != null)
         {
             UpdateInventoryUI(itemCollectorP1, player1UI);
+        }
+        else
+        {
+            OnPlayerSpawn();
+        }
+        if(itemCollectorP2 != null)
+        {
             UpdateInventoryUI(itemCollectorP2, player2UI);
         }
         else
@@ -72,14 +79,6 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
-    private bool CanUpdate()
-    {
-        if(itemCollectorP1 == null || itemCollectorP2 == null)
-        {
-            return false;
-        }
-        return true;
-    }
 
     private Image[] GetImagesWithTag(string tag)
     {
