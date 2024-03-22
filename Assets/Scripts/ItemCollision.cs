@@ -10,7 +10,7 @@ public class ItemCollision : MonoBehaviour
 
     private void Start()
     {
-        pl = GameObject.FindGameObjectWithTag("Player").GetComponent<ItemCollector>();
+        pl = transform.parent.GetComponent<ItemCollector>();
         inventory = pl.inventory;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,19 +23,19 @@ public class ItemCollision : MonoBehaviour
         {
             Destroy(collision.gameObject);
             inventory[(int)ItemType.mice]++;
-            pl.UpdateInventoryUI();
+            //pl.UpdateInventoryUI();
         }
         else if (!pl.CheckInventory() && inventory[(int)ItemType.materialCheese] == 0 && inventory[(int)ItemType.mice] == 0 && collision.gameObject.CompareTag("Fuell"))
         {
             Destroy(collision.gameObject);
             inventory[(int)ItemType.fuellCheese]++;
-            pl.UpdateInventoryUI();
+            //pl.UpdateInventoryUI();
         }
         else if (!pl.CheckInventory() && inventory[(int)ItemType.mice] == 0 && inventory[(int)ItemType.fuellCheese] == 0 && collision.gameObject.CompareTag("Resource"))
         {
             Destroy(collision.gameObject);
             inventory[(int)ItemType.materialCheese]++;
-            pl.UpdateInventoryUI();
+            //pl.UpdateInventoryUI();
         }
 
     }

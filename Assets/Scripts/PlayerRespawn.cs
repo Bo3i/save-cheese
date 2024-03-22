@@ -38,7 +38,7 @@ public class PlayerRespawn : MonoBehaviour
         {
             ic.inventory[i] = 0;
         }
-        ic.UpdateInventoryUI();
+        //ic.UpdateInventoryUI();
         transform.position = respawnPoint;
         rb.velocity = new Vector3(0,10,0);
         dead = false;

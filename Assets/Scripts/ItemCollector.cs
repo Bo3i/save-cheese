@@ -9,10 +9,6 @@ using System.Globalization;
 
 public class ItemCollector : MonoBehaviour
 {
-     private Image[] fuelCheeses;
-     private Image[] materialCheeses;
-     private Image[] mice;
-
 
     [SerializeField] private Object FuellItem;
     [SerializeField] private Object ResourceItem;
@@ -32,19 +28,13 @@ public class ItemCollector : MonoBehaviour
 
     private void Start()
     {
-        OnStartUI();
         jumpableGround = LayerMask.GetMask("Ground");
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         inventory[(int)ItemType.fuellCheese] = 0;
         inventory[(int)ItemType.materialCheese] = 0;
         inventory[(int)ItemType.mice] = 0;
-        for (int i = 0; i < fuelCheeses.Length; i++)
-        {
-            fuelCheeses[i].enabled = false;
-            materialCheeses[i].enabled = false;
-            mice[i].enabled = false;
-        }
+        
     }
 
     
@@ -54,32 +44,6 @@ public class ItemCollector : MonoBehaviour
         DropItem();
     }
 
-    private void OnStartUI()
-    {
-        GameObject[] fuelObjects = GameObject.FindGameObjectsWithTag("Fuell");
-        List<Image> fuelCheeseList = new List<Image>();
-        foreach (GameObject fuelObject in fuelObjects)
-        {
-            fuelCheeseList.AddRange(fuelObject.GetComponentsInChildren<Image>());
-        }
-        fuelCheeses = fuelCheeseList.ToArray();
-
-        GameObject[] materialObjects = GameObject.FindGameObjectsWithTag("Resource");
-        List<Image> materialCheeseList = new List<Image>();
-        foreach (GameObject materialObject in materialObjects)
-        {
-            materialCheeseList.AddRange(materialObject.GetComponentsInChildren<Image>());
-        }
-        materialCheeses = materialCheeseList.ToArray();
-
-        GameObject[] mouseObjects = GameObject.FindGameObjectsWithTag("Mouse");
-        List<Image> miceList = new List<Image>();
-        foreach (GameObject mouseObject in mouseObjects)
-        {
-            miceList.AddRange(mouseObject.GetComponentsInChildren<Image>());
-        }
-        mice = miceList.ToArray();
-    }
 
     public void OnItemDrop(InputAction.CallbackContext context)
     {
@@ -102,19 +66,16 @@ public class ItemCollector : MonoBehaviour
                 if (inventory[(int)ItemType.fuellCheese] > 0)
                 {
                     inventory[(int)ItemType.fuellCheese]--;
-                    fuelCheeses[inventory[(int)ItemType.fuellCheese]].enabled = false;
                     newObject = Instantiate(FuellItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
                 }
                 else if (inventory[(int)ItemType.materialCheese] > 0)
                 {
                     inventory[(int)ItemType.materialCheese]--;
-                    materialCheeses[inventory[(int)ItemType.materialCheese]].enabled = false;
                     newObject = Instantiate(ResourceItem, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
                 }
                 else if (inventory[(int)ItemType.mice] > 0)
                 {
                     inventory[(int)ItemType.mice]--;
-                    mice[inventory[(int)ItemType.mice]].enabled = false;
                     newObject = Instantiate(Mouse, new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0), Quaternion.identity);
                 }
                 if (newObject != null)
@@ -135,39 +96,7 @@ public class ItemCollector : MonoBehaviour
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.right, .1f, jumpableGround) || Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.left, .1f, jumpableGround);
     }
 
-    public void UpdateInventoryUI()
-    {
-        if (inventory[(int)ItemType.fuellCheese] > 0)
-        {
-            for (int i = 0; i < inventory[(int)ItemType.fuellCheese]; i++)
-            {
-                fuelCheeses[i].enabled = true;
-            }
-        }
-        else if (inventory[(int)ItemType.materialCheese] > 0)
-        {
-            for (int i = 0; i < inventory[(int)ItemType.materialCheese]; i++)
-            {
-                materialCheeses[i].enabled = true;
-            }
-        }
-        else if (inventory[(int)ItemType.mice] > 0)
-        {
-            for (int i = 0; i < inventory[(int)ItemType.mice]; i++)
-            {
-                mice[i].enabled = true;
-            }
-        }
-        else 
-        {             
-            for (int i = 0; i < fuelCheeses.Length; i++)
-            {
-                fuelCheeses[i].enabled = false;
-                materialCheeses[i].enabled = false;
-                mice[i].enabled = false;
-            }
-        }   
-    }
+    
 
     public bool CheckInventory()
     {
