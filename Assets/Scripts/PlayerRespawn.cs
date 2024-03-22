@@ -30,7 +30,6 @@ public class PlayerRespawn : MonoBehaviour
             Respawn();
         }
         IsDead();
-
     }
 
     private void Respawn()

@@ -120,9 +120,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7723984648666795326}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMove
+      - m_Target: {fileID: 641893576390703568}
+        m_TargetAssemblyTypeName: ItemCollector, Assembly-CSharp
+        m_MethodName: OnItemDrop
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -132,9 +132,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_ActionId: fa9bbdec-fa72-4fe9-9b9c-c394190e49ba
+    m_ActionName: Player/Drop[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 6680050000125373866}
         m_TargetAssemblyTypeName: PlayerDigging, Assembly-CSharp
-        m_MethodName: OnMove
+        m_MethodName: OnDig
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -144,8 +148,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: a30dbb68-a27c-4dca-8a61-af8f6542377f
-    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+      - m_Target: {fileID: 7723984648666795326}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnDig
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: de5292c0-295b-48e3-875c-eb9e03daf317
+    m_ActionName: Player/Dig[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7723984648666795326}
@@ -160,8 +176,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: d539dfb1-1a65-4990-9241-8249e08c9f3e
-    m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/rightCtrl]
+    m_ActionId: 9ae9e9da-85b0-4ce1-be98-00d7b351bfbc
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7723984648666795326}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6680050000125373866}
+        m_TargetAssemblyTypeName: PlayerDigging, Assembly-CSharp
+        m_MethodName: OnDig
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 08633b53-3721-4d73-839e-060ebcf1948d
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 641893576390703568}
+        m_TargetAssemblyTypeName: ItemCollector, Assembly-CSharp
+        m_MethodName: OnItemDrop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a9ea88e5-e58c-47c9-ae29-3acb97293a40
+    m_ActionName: Player1/Drop[/Keyboard/period]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6680050000125373866}
@@ -188,13 +248,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: a62e30cf-ae93-4ea8-aaba-00f6eb6cdf21
-    m_ActionName: Player/Dig[/Keyboard/e,/Keyboard/slash]
+    m_ActionId: 6c34e3a4-eb4f-40cf-9638-627c75256931
+    m_ActionName: Player1/Dig[/Keyboard/slash]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 641893576390703568}
-        m_TargetAssemblyTypeName: ItemCollector, Assembly-CSharp
-        m_MethodName: OnItemDrop
+      - m_Target: {fileID: 7723984648666795326}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -203,11 +263,39 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
-    m_ActionId: 75903715-be3b-4c90-b76e-d5db92fd9660
-    m_ActionName: Player/Drop[/Keyboard/q,/Keyboard/period]
+        m_CallState: 2
+    m_ActionId: de164bc7-f8b6-49cd-95ed-ed48b6739909
+    m_ActionName: Player1/Jump[/Keyboard/rightCtrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7723984648666795326}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6680050000125373866}
+        m_TargetAssemblyTypeName: PlayerDigging, Assembly-CSharp
+        m_MethodName: OnDig
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ea9ed3f1-67a7-4b88-bbb2-f3171b93b652
+    m_ActionName: Player1/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard3
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -415,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fe8ef816812a146888240743c675c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  train: {fileID: 4115925369569827972, guid: 2c27601d9490a004ea8e1ce40f0313ef, type: 3}
 --- !u!1 &4930710518470982673
 GameObject:
   m_ObjectHideFlags: 0

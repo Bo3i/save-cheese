@@ -36,16 +36,19 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext callback)
     {
         dir = callback.ReadValue<Vector2>();
+        Debug.Log("Player moved: " + dir);
     }
 
     public void OnJump(InputAction.CallbackContext callback)
     {
         jump = callback.action.triggered;
+        Debug.Log("Player jumped: " + jump);
     }
 
     public void OnDig(InputAction.CallbackContext callback)
     {
         dig = callback.action.triggered;
+        Debug.Log("Player dug: " + dig);
     }
 
     // Update is called once per frame
