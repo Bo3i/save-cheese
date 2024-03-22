@@ -49,7 +49,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -60,7 +60,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Dig",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -71,7 +71,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -93,7 +93,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -104,7 +104,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -115,7 +115,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -126,58 +126,14 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
-                }
-            ]
-        },
-        {
-            "name": "Player1",
-            "id": "80e6a9ca-17f3-4eb9-ad3f-30a1c8567338",
-            "actions": [
-                {
-                    "name": "Drop",
-                    "type": "Button",
-                    "id": "a9ea88e5-e58c-47c9-ae29-3acb97293a40",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
-                {
-                    "name": "Dig",
-                    "type": "Button",
-                    "id": "6c34e3a4-eb4f-40cf-9638-627c75256931",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "de164bc7-f8b6-49cd-95ed-ed48b6739909",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Movement",
-                    "type": "PassThrough",
-                    "id": "ea9ed3f1-67a7-4b88-bbb2-f3171b93b652",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
                 {
                     "name": "Arrows",
-                    "id": "ece31932-9490-4d29-a227-a4fea69d2402",
+                    "id": "b9af9556-200b-4cc7-b58b-7eb98e1b759c",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -188,77 +144,77 @@
                 },
                 {
                     "name": "up",
-                    "id": "0814d390-2bdf-44b1-839e-0ae2f544588d",
+                    "id": "5980cc17-5884-4809-b266-b393d7b1a938",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "a34ef9b4-3501-44f9-ba2e-06f29afd2e1f",
+                    "id": "be811ab2-3cea-4fc1-b4e9-2f99fed09502",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "b3033e69-50bc-4a8c-8ac8-8c5362de394c",
+                    "id": "0dbe11cf-af40-429e-a250-afe39665db56",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "6afcbd31-e062-49a0-aabe-94cf1ffb36e8",
+                    "id": "0013ae69-4444-4ba4-a2aa-5ede9ac4bb2f",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "405b3459-a04a-415c-8736-e2c0fb688eb7",
+                    "id": "09819af6-ce6c-4bd5-99c4-72930bd9f05b",
                     "path": "<Keyboard>/rightCtrl",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7a47310e-4873-4377-86ff-e92cb05d6949",
+                    "id": "30fb7038-a3b2-430a-960b-436681604ea6",
                     "path": "<Keyboard>/slash",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Dig",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7198ebc1-f46d-4674-82db-7b15bb439fa1",
+                    "id": "f26b53b7-7f13-45ed-ba7f-5ae9fc6526ef",
                     "path": "<Keyboard>/period",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player2",
                     "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -266,5 +222,28 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Player1",
+            "bindingGroup": "Player1",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Player2",
+            "bindingGroup": "Player2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
