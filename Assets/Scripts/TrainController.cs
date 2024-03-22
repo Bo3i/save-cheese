@@ -44,7 +44,7 @@ public class TrainController : MonoBehaviour
 
     private void SlicerCheck()
     {
-        if (currentCarts > 0 && ts.lastSlicedPos == (int)((GameObject)carts[currentCarts - 1]).transform.position.x - 1)
+        if (currentCarts > 0 && ts.lastSlicedPos >= (int)((GameObject)carts[currentCarts - 1]).transform.position.x - 1)
         {
             RemoveCart();
         }
