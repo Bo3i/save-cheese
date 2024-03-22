@@ -12,6 +12,7 @@ TagManager:
   - Resource
   - FuellTilemap
   - ResourceTilemap
+  - Player1
   layers:
   - Default
   - TransparentFX

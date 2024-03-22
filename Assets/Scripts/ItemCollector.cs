@@ -9,10 +9,10 @@ using System.Globalization;
 
 public class ItemCollector : MonoBehaviour
 {
-    [SerializeField] private GameObject playerPos;
-    [SerializeField] private GameObject[] fuelCheeses;
-    [SerializeField] private GameObject materialCheeses;
-    [SerializeField] private GameObject mice;
+     private Image[] fuelCheeses;
+     private Image[] materialCheeses;
+     private Image[] mice;
+
 
     [SerializeField] private Object FuellItem;
     [SerializeField] private Object ResourceItem;
@@ -32,6 +32,7 @@ public class ItemCollector : MonoBehaviour
 
     private void Start()
     {
+        OnStartUI();
         jumpableGround = LayerMask.GetMask("Ground");
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -46,12 +47,40 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
+    
+
     private void Update()
     {
         DropItem();
-        playerPos.text = "X: " + (int)transform.position.x + " Y: " + (int)transform.position.y + " Vel: " + rb.velocity;
     }
-    
+
+    private void OnStartUI()
+    {
+        GameObject[] fuelObjects = GameObject.FindGameObjectsWithTag("Fuell");
+        List<Image> fuelCheeseList = new List<Image>();
+        foreach (GameObject fuelObject in fuelObjects)
+        {
+            fuelCheeseList.AddRange(fuelObject.GetComponentsInChildren<Image>());
+        }
+        fuelCheeses = fuelCheeseList.ToArray();
+
+        GameObject[] materialObjects = GameObject.FindGameObjectsWithTag("Resource");
+        List<Image> materialCheeseList = new List<Image>();
+        foreach (GameObject materialObject in materialObjects)
+        {
+            materialCheeseList.AddRange(materialObject.GetComponentsInChildren<Image>());
+        }
+        materialCheeses = materialCheeseList.ToArray();
+
+        GameObject[] mouseObjects = GameObject.FindGameObjectsWithTag("Mouse");
+        List<Image> miceList = new List<Image>();
+        foreach (GameObject mouseObject in mouseObjects)
+        {
+            miceList.AddRange(mouseObject.GetComponentsInChildren<Image>());
+        }
+        mice = miceList.ToArray();
+    }
+
     public void OnItemDrop(InputAction.CallbackContext context)
     {
         drop = context.action.triggered;

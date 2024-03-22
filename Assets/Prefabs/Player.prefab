@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 2789796525067816975}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
     m_ActionId: 75903715-be3b-4c90-b76e-d5db92fd9660
     m_ActionName: Player/Drop[/Keyboard/q,/Keyboard/period]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard3
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -334,20 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e6c7682efee90469002eafce503408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  playerPos: {fileID: 0}
-  fuelCheeses:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  materialCheeses:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mice:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   FuellItem: {fileID: 2159068168354825354, guid: caba09b37ee80d94a983b5e29ac2151d, type: 3}
   ResourceItem: {fileID: 5657999085346647397, guid: 07deb034a5d3431478678df23d5ab445, type: 3}
   Mouse: {fileID: 904763863181609880, guid: f4e012d10ed7a704b85d1c4a017dd529, type: 3}
@@ -365,9 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99b5b6ffacc8964d805cdd4cfc56a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundTilemap: {fileID: 0}
-  resourcesTilemap: {fileID: 0}
-  fuellTilemap: {fileID: 0}
   tile: {fileID: 11400000, guid: 250f6b903e11b5142ad219b6f5aaa1d0, type: 2}
   noEntranceCheese: {fileID: 11400000, guid: 1136720e48ea4544a99b5e23965d3e44, type: 2}
   cheeseLeftTop: {fileID: 11400000, guid: abb39abe5247f99448c4fc1b1b4eac34, type: 2}

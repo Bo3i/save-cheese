@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    [SerializeField] private GameObject train;
+    private GameObject train;
 
     private Vector3 respawnPoint;
     private ItemCollector ic;
@@ -14,6 +14,7 @@ public class PlayerRespawn : MonoBehaviour
     
     private void Start()
     {
+        train = GameObject.Find("Train");
         dead = true;
         rb = GetComponent<Rigidbody2D>();
         ic = GetComponent<ItemCollector>();

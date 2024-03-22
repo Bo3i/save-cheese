@@ -9,12 +9,10 @@ public class PlayerDigging : MonoBehaviour
 {
     private Animator anim;
     private ItemCollector itemCollector;
-    //private Rigidbody2D rb;
-    //private Transform player;
 
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap resourcesTilemap;
-    [SerializeField] private Tilemap fuellTilemap;
+    private Tilemap groundTilemap;
+    private Tilemap resourcesTilemap;
+    private Tilemap fuellTilemap;
 
     [SerializeField] private TileBase tile;
     [SerializeField] private TileBase noEntranceCheese;
@@ -89,6 +87,9 @@ public class PlayerDigging : MonoBehaviour
         anim = GetComponent<Animator>();
         itemCollector = GetComponent<ItemCollector>();
         digging = false;
+        groundTilemap = GameObject.Find("Terrain").GetComponent<Tilemap>();
+        resourcesTilemap = GameObject.Find("ResourcesTilemap").GetComponent<Tilemap>();
+        fuellTilemap = GameObject.Find("FuellTilemap").GetComponent<Tilemap>();
     }
 
     private void Update()
@@ -96,6 +97,7 @@ public class PlayerDigging : MonoBehaviour
         SetTilemap();
         Dig();
     }
+
 
     private void SetTilemap()
     {

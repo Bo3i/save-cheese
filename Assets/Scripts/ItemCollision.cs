@@ -10,7 +10,7 @@ public class ItemCollision : MonoBehaviour
 
     private void Start()
     {
-        pl = GameObject.Find("Player").GetComponent<ItemCollector>();
+        pl = GameObject.FindGameObjectWithTag("Player").GetComponent<ItemCollector>();
         inventory = pl.inventory;
     }
     private void OnTriggerEnter2D(Collider2D collision)
