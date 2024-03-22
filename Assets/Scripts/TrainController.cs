@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,12 +20,13 @@ public class TrainController : MonoBehaviour
     private int maxCarts = 5;
     private int currentCarts;
     private Object[] carts;
-
+    private TerrainSlicer ts;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ts = GetComponent<TerrainSlicer>();
         fuelSlider = GameObject.Find("TrainFuellProgressBar").GetComponent<Slider>();
         FindUIResources();
         carts = new Object[maxCarts];
@@ -37,6 +39,15 @@ public class TrainController : MonoBehaviour
     {
         Move();
         ProgressBarrUpdate();
+        SlicerCheck();
+    }
+
+    private void SlicerCheck()
+    {
+        if (currentCarts > 0 && ts.lastSlicedPos == (int)((GameObject)carts[currentCarts - 1]).transform.position.x - 1)
+        {
+            RemoveCart();
+        }
     }
 
     private void FindUIResources()
@@ -133,6 +144,15 @@ public class TrainController : MonoBehaviour
     {
             carts[currentCarts] = Instantiate(MiceCart, new Vector3(transform.position.x - 2 * currentCarts - offset, transform.position.y, transform.position.z), Quaternion.identity);
             currentCarts++;  
+    }
+
+    private void RemoveCart()
+    {
+        if (currentCarts > 0)
+        {
+            Destroy((GameObject)carts[currentCarts-1]);
+            currentCarts--;
+        }
     }
 
     private bool TrainHasSpace()
