@@ -9,12 +9,10 @@ public class PlayerDigging : MonoBehaviour
 {
     private Animator anim;
     private ItemCollector itemCollector;
-    //private Rigidbody2D rb;
-    //private Transform player;
 
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap resourcesTilemap;
-    [SerializeField] private Tilemap fuellTilemap;
+    private Tilemap groundTilemap;
+    private Tilemap resourcesTilemap;
+    private Tilemap fuellTilemap;
 
     [SerializeField] private TileBase tile;
     [SerializeField] private TileBase noEntranceCheese;
@@ -75,8 +73,8 @@ public class PlayerDigging : MonoBehaviour
 
     private Tilemap tilemap;
     private bool digging;
-    private bool digPressed = false;
-    private Vector2 dir = new Vector2(0,0);
+    private bool digPressed;
+    private Vector2 dir;
 
     private enum Neighbour { up, down, left, right }
     private enum TileType
@@ -89,6 +87,9 @@ public class PlayerDigging : MonoBehaviour
         anim = GetComponent<Animator>();
         itemCollector = GetComponent<ItemCollector>();
         digging = false;
+        groundTilemap = GameObject.Find("Terrain").GetComponent<Tilemap>();
+        resourcesTilemap = GameObject.Find("ResourcesTilemap").GetComponent<Tilemap>();
+        fuellTilemap = GameObject.Find("FuellTilemap").GetComponent<Tilemap>();
     }
 
     private void Update()
@@ -97,17 +98,18 @@ public class PlayerDigging : MonoBehaviour
         Dig();
     }
 
+
     private void SetTilemap()
     {
-        if (groundTilemap.GetTile(groundTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"),0))) != null)
+        if (groundTilemap.GetTile(groundTilemap.WorldToCell(new Vector3(transform.position.x + dir.x, transform.position.y + dir.y,0))) != null)
         {
             tilemap = groundTilemap;
         }
-        else if (resourcesTilemap.GetTile(resourcesTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"),0))) != null)
+        else if (resourcesTilemap.GetTile(resourcesTilemap.WorldToCell(new Vector3(transform.position.x + dir.x, transform.position.y + dir.y,0))) != null)
         {
             tilemap = resourcesTilemap;
         }
-        else if (fuellTilemap.GetTile(fuellTilemap.WorldToCell(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal"), transform.position.y + Input.GetAxisRaw("Vertical"), 0))) != null)
+        else if (fuellTilemap.GetTile(fuellTilemap.WorldToCell(new Vector3(transform.position.x + dir.x, transform.position.y + dir.y, 0))) != null)
         {
             tilemap = fuellTilemap;
         }
@@ -115,6 +117,7 @@ public class PlayerDigging : MonoBehaviour
         {
             tilemap = null;
         }
+
     } 
 
     private TileBase retDugTile(Vector3Int cell)
@@ -124,7 +127,6 @@ public class PlayerDigging : MonoBehaviour
 
     public void UpdateNeighbours(Vector3Int tile)
     {
-        //Debug.Log("Neighbours updated");
          
         Vector3Int[] neighbourCells = new Vector3Int[4];
         neighbourCells[0] = new Vector3Int(tile.x, tile.y + 1, tile.z);
@@ -286,7 +288,6 @@ public class PlayerDigging : MonoBehaviour
         {
             if ((dir.x != 0 && dir.y == 0) || (dir.x == 0 && dir.y != 0) )
             {
-                
                 cell.x += (int)dir.x;
                 cell.y += (int)dir.y;
                 if (retDugTile(cell) != null && retDugTile(cell) != noEntranceCheese)
@@ -296,9 +297,7 @@ public class PlayerDigging : MonoBehaviour
                     tilemap.SetTileFlags(cell, TileFlags.None);
                     StartCoroutine(Fade(cell, an, tilemap));
                 }
-                
             }
-
         }
     }
 

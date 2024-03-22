@@ -12,6 +12,13 @@ TagManager:
   - Resource
   - FuellTilemap
   - ResourceTilemap
+  - Player1
+  - FuelP1
+  - FuelP2
+  - ResourceP1
+  - ResourceP2
+  - MouseP1
+  - MouseP2
   layers:
   - Default
   - TransparentFX
