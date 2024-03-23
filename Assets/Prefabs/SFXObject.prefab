@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8824782135610582092}
   - component: {fileID: 6380535571838803477}
+  - component: {fileID: 5608234686922556423}
   m_Layer: 0
   m_Name: SFXObject
   m_TagString: Untagged
@@ -128,3 +129,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5608234686922556423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084599553445775488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b28078ba452cf4b971989a6c62524f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

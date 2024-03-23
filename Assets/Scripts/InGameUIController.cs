@@ -27,6 +27,14 @@ public class InGameUIController : MonoBehaviour
     public GameObject PauseButtonResume;
     public GameObject PauseButton;
 
+    public GameObject PauseButtonSettingsBack;
+
+    private GameObject musicVol;
+    private GameObject musicVolumeSlider;
+    private GameObject FXVol;
+    private GameObject SFXVolumeSlider;
+
+
     private Image[] fuelCheesesP1;
     private Image[] materialCheesesP1;
     private Image[] miceP1;
@@ -157,7 +165,32 @@ public class InGameUIController : MonoBehaviour
 
     public void Settings()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+        musicVol.SetActive(true);
+        musicVolumeSlider.SetActive(true);
+        FXVol.SetActive(true);
+        SFXVolumeSlider.SetActive(true);
+        PauseButtonSettingsBack.SetActive(true);
+
+        pauseText.SetActive(false);
+        PauseButtonBack.SetActive(false);
+        PauseButtonSettings.SetActive(false);
+        PauseButtonRestart.SetActive(false);
+        PauseButtonResume.SetActive(false);
+    }
+
+    public void SettingsBack()
+    {
+        musicVol.SetActive(false);
+        musicVolumeSlider.SetActive(false);
+        FXVol.SetActive(false);
+        SFXVolumeSlider.SetActive(false);
+        PauseButtonSettingsBack.SetActive(false);
+
+        pauseText.SetActive(true);
+        PauseButtonBack.SetActive(true);
+        PauseButtonSettings.SetActive(true);
+        PauseButtonRestart.SetActive(true);
+        PauseButtonResume.SetActive(true);
     }
 
     private void OnStartUI()
@@ -197,7 +230,21 @@ public class InGameUIController : MonoBehaviour
         PauseButtonResume = GameObject.Find("PauseButtonResume");
         PauseButtonResume.SetActive(false);
 
-        PauseButton = GameObject.Find("PauseButton");
+        PauseButton = GameObject.Find("Pause");
+
+        musicVol = GameObject.Find("MusicVol");
+        musicVol.SetActive(false);
+
+        musicVolumeSlider = GameObject.Find("MusicVolumeSlider");
+        musicVolumeSlider.SetActive(false);
+
+        PauseButtonSettingsBack = GameObject.Find("PauseButtonSettngsBack");
+        PauseButtonSettingsBack.SetActive(false);
+
+        FXVol = GameObject.Find("FXVol");
+        SFXVolumeSlider = GameObject.Find("SFXVolumeSlider");
+        SFXVolumeSlider.SetActive(false);
+        FXVol.SetActive(false);
 
         player1UI = new Image[][] { fuelCheesesP1, materialCheesesP1, miceP1 };
         player2UI = new Image[][] { fuelCheesesP2, materialCheesesP2, miceP2 };
@@ -224,6 +271,16 @@ public class InGameUIController : MonoBehaviour
                 images[i].enabled = false;
             }
         }
+    }
+
+    public void MusicVolume()
+    {
+        GameInfo.musicVolume = GameObject.Find("MusicVolumeSlider").GetComponent<Slider>().value;
+    }
+
+    public void SFXVolume()
+    {
+        GameInfo.sFXVolume = GameObject.Find("SFXVolumeSlider").GetComponent<Slider>().value;
     }
 
     public void Restart()

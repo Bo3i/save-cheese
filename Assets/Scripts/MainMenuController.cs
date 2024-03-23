@@ -75,6 +75,22 @@ public class MainMenuController : MonoBehaviour
     {
         GameInfo.isPlayer2Playing = true;
         GameObject.Find("Player2Image").GetComponent<Image>().enabled = true;
+        if(GameInfo.player1Color != colors[0])
+        {
+            GameInfo.player2Color = colors[0];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[0];
+        }
+        else if(GameInfo.player1Color != colors[1])
+        {
+            GameInfo.player2Color = colors[1];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[1];
+        }
+        else if(GameInfo.player1Color != colors[2])
+        {
+            GameInfo.player2Color = colors[2];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[2];
+        }
+        
         removePlayer2Button.SetActive(true);
         player2Name.SetActive(true);
         playerButton.SetActive(false);
@@ -86,13 +102,26 @@ public class MainMenuController : MonoBehaviour
     public void RemovePlayer2()
     {
         GameInfo.isPlayer2Playing = false;
+        GameInfo.player2Name = "Player 2";
+        GameInfo.player2Color = new Color32(0,0,0,0);
         GameObject.Find("Player2Image").GetComponent<Image>().enabled = false;
+        player2Name.GetComponent<InputField>().text = "Player 2";
         player2Name.SetActive(false);
         removePlayer2Button.SetActive(false);
         playerButton.SetActive(true);
         player2Color.SetActive(false);
         player2Color1.SetActive(false);
         player2Color2.SetActive(false);
+    }
+
+    public void MusicVolume()
+    {
+        GameInfo.musicVolume = GameObject.Find("MusicVolumeSlider").GetComponent<Slider>().value;
+    }
+
+    public void SFXVolume()
+    {
+        GameInfo.sFXVolume = GameObject.Find("SFXVolumeSlider").GetComponent<Slider>().value;
     }
 
     public void SetMusicTime()
