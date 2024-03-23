@@ -542,6 +542,8 @@ MonoBehaviour:
   player2Color2: {fileID: 0}
   player1Image: {fileID: 0}
   player2Image: {fileID: 0}
+  sliderVolMusic: {fileID: 0}
+  sliderVolSFX: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: ce9a0b9060e2bcf48a432e7793e5d26b, type: 3}
   colors:
   - {r: 1, g: 0.49411765, b: 0.4392157, a: 1}

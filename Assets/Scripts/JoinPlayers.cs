@@ -14,14 +14,12 @@ public class JoinPlayers : MonoBehaviour
         p1.GetComponent<PlayerInput>().defaultControlScheme = "Player1";
         p1.name = "Player1";
         p1.GetComponent<SpriteRenderer>().color = GameInfo.player1Color;
-        Debug.Log("Player 1 joined");
         if (GameInfo.isPlayer2Playing)
         {
             GameObject p2 = Instantiate(player1, new Vector3(5, 0, 0), Quaternion.identity);
             p2.GetComponent<SpriteRenderer>().color = GameInfo.player2Color;
             p2.name = "Player2";
             p2.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Player2", Keyboard.current);
-            Debug.Log("Player 2 joined");
         }
         GameInfo.lost = false;
     }

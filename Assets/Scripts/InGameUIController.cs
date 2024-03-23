@@ -98,6 +98,11 @@ public class InGameUIController : MonoBehaviour
             if(Time.timeScale == 0)
             {
                 Resume();
+                musicVol.SetActive(false);
+                musicVolumeSlider.SetActive(false);
+                FXVol.SetActive(false);
+                SFXVolumeSlider.SetActive(false);
+                PauseButtonSettingsBack.SetActive(false);
             }
             else
             {
@@ -236,6 +241,7 @@ public class InGameUIController : MonoBehaviour
         musicVol.SetActive(false);
 
         musicVolumeSlider = GameObject.Find("MusicVolumeSlider");
+        musicVolumeSlider.GetComponent<Slider>().value = GameInfo.musicVolume;
         musicVolumeSlider.SetActive(false);
 
         PauseButtonSettingsBack = GameObject.Find("PauseButtonSettngsBack");
@@ -243,6 +249,7 @@ public class InGameUIController : MonoBehaviour
 
         FXVol = GameObject.Find("FXVol");
         SFXVolumeSlider = GameObject.Find("SFXVolumeSlider");
+        SFXVolumeSlider.GetComponent<Slider>().value = GameInfo.sFXVolume;
         SFXVolumeSlider.SetActive(false);
         FXVol.SetActive(false);
 
@@ -294,6 +301,7 @@ public class InGameUIController : MonoBehaviour
 
     public void MainMenu()
     {
+        GameInfo.isPlayer2Playing = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

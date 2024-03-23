@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject player2Color2;
     public GameObject player1Image;
     public GameObject player2Image;
+    public GameObject sliderVolMusic;
+    public GameObject sliderVolSFX;
     
     [SerializeField] public AudioClip backgroundMusic;
 
@@ -24,6 +26,7 @@ public class MainMenuController : MonoBehaviour
     {
         SoundManager.instance.PlayMusic(backgroundMusic, GameInfo.musicVolume);
 
+
         player2Name = GameObject.Find("Player2Name");
         removePlayer2Button = GameObject.Find("RemovePlayer2Button");
         playerButton = GameObject.Find("Player2Button");
@@ -33,6 +36,7 @@ public class MainMenuController : MonoBehaviour
         player1Image = GameObject.Find("Player1Image");
         player2Image = GameObject.Find("Player2Image");
         
+
         try 
         {
             player1Image.GetComponent<Image>().color = GameInfo.player1Color;
@@ -42,6 +46,16 @@ public class MainMenuController : MonoBehaviour
             player2Color.SetActive(false);
             player2Color1.SetActive(false);
             player2Color2.SetActive(false);
+        }
+        catch
+        {
+        }
+        try
+        {
+            sliderVolMusic = GameObject.Find("MusicVolumeSlider");
+            sliderVolSFX = GameObject.Find("SFXVolumeSlider");
+            sliderVolMusic.GetComponent<Slider>().value = GameInfo.musicVolume;
+            sliderVolSFX.GetComponent<Slider>().value = GameInfo.sFXVolume;
         }
         catch
         {
@@ -105,7 +119,6 @@ public class MainMenuController : MonoBehaviour
         GameInfo.player2Name = "Player 2";
         GameInfo.player2Color = new Color32(0,0,0,0);
         GameObject.Find("Player2Image").GetComponent<Image>().enabled = false;
-        player2Name.GetComponent<InputField>().text = "Player 2";
         player2Name.SetActive(false);
         removePlayer2Button.SetActive(false);
         playerButton.SetActive(true);

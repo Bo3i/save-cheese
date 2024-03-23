@@ -38,7 +38,7 @@ public class MiceCartController : MonoBehaviour
                     if (!isFull)
                     {
                         isFull = true;
-                        sprite.color = Color.red;
+                        //sprite.color = Color.red;
                         AddMouse(collision.gameObject);
                     }
                 }
