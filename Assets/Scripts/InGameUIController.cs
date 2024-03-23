@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameUIController : MonoBehaviour
 {
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
+
+    private TextMeshProUGUI lostText;
+
+    private TextMeshProUGUI P1Name;
+    private TextMeshProUGUI P2Name;
+
+    private GameObject restartButton;
+    private GameObject mainMenuButton;
 
     private Image[] fuelCheesesP1;
     private Image[] materialCheesesP1;
@@ -56,6 +66,12 @@ public class InGameUIController : MonoBehaviour
         {
             OnPlayerSpawn();
         }
+        if(GameInfo.lost)
+        {
+            lostText.enabled = true;
+            restartButton.SetActive(true);
+            mainMenuButton.SetActive(true);
+        }
         
     }
 
@@ -67,6 +83,7 @@ public class InGameUIController : MonoBehaviour
             if(p1 != null)
             {
                 itemCollectorP1 = p1.GetComponent<ItemCollector>();
+                P1Name.text = GameInfo.player1Name;
             }
         }
         if(itemCollectorP2 == null)
@@ -75,6 +92,7 @@ public class InGameUIController : MonoBehaviour
             if(p2 != null)
             {
                 itemCollectorP2 = p2.GetComponent<ItemCollector>();
+                P2Name.text = GameInfo.player2Name;
             }
         }
     }
@@ -101,6 +119,18 @@ public class InGameUIController : MonoBehaviour
         materialCheesesP2 = GetImagesWithTag("ResourceP2");
         miceP2 = GetImagesWithTag("MouseP2");
 
+        P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
+        P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
+
+        lostText = GameObject.Find("LostText").GetComponent<TextMeshProUGUI>();
+        lostText.enabled = false;
+
+        restartButton = GameObject.Find("Play");
+        restartButton.SetActive(false);
+
+        mainMenuButton = GameObject.Find("Back");
+        mainMenuButton.SetActive(false);
+
         player1UI = new Image[][] { fuelCheesesP1, materialCheesesP1, miceP1 };
         player2UI = new Image[][] { fuelCheesesP2, materialCheesesP2, miceP2 };
     }
@@ -126,5 +156,15 @@ public class InGameUIController : MonoBehaviour
                 images[i].enabled = false;
             }
         }
+    }
+
+    public void Restart()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

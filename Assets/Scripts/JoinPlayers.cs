@@ -23,5 +23,6 @@ public class JoinPlayers : MonoBehaviour
             p2.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Player2", Keyboard.current);
             Debug.Log("Player 2 joined");
         }
+        GameInfo.lost = false;
     }
 }

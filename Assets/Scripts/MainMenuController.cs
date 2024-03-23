@@ -12,6 +12,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject player2Color;
     public GameObject player2Color1;
     public GameObject player2Color2;
+    public GameObject player1Image;
+    public GameObject player2Image;
 
 
     public UnityEngine.Color[] colors = { new Color32(0xFF, 0x7E, 0x70, 0xFF), new Color32(0xE4, 0xFF, 0x70, 0xFF), new Color32(0x70, 0xC3, 0xFF, 0xFF) };
@@ -24,6 +26,11 @@ public class MainMenuController : MonoBehaviour
         player2Color = GameObject.Find("ColorP2");
         player2Color1 = GameObject.Find("ColorP2 (1)");
         player2Color2 = GameObject.Find("ColorP2 (2)");
+        player1Image = GameObject.Find("Player1Image");
+        player2Image = GameObject.Find("Player2Image");
+        player1Image.GetComponent<Image>().color = GameInfo.player1Color;
+        player2Image.GetComponent<Image>().color = GameInfo.player2Color;
+        
         try 
         {
             player2Name.SetActive(false);

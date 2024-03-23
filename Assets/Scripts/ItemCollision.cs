@@ -19,6 +19,14 @@ public class ItemCollision : MonoBehaviour
         {
             return;
         }
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+        if (pl == null)
+        {
+            pl = transform.parent.GetComponent<ItemCollector>();
+        }
         if (!pl.CheckInventory() && inventory[(int)ItemType.materialCheese] == 0 && inventory[(int)ItemType.fuellCheese] == 0 && collision.gameObject.CompareTag("Mouse"))
         {
             Destroy(collision.gameObject);

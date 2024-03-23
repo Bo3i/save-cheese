@@ -24,6 +24,10 @@ public class PlayerRespawn : MonoBehaviour
 
     void Update()
     {
+        if(GameInfo.lost)
+        {
+            return;
+        }
         respawnPoint = new Vector2(train.transform.position.x - 1.25f, train.transform.position.y + 1.5f);
         if (dead)
         {

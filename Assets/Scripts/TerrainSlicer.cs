@@ -32,6 +32,10 @@ public class TerrainSlicer : MonoBehaviour
 
     void Update()
     {
+        if (GameInfo.lost)
+        {
+            return;
+        }
         Slice();
     }
 

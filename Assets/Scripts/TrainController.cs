@@ -48,6 +48,11 @@ public class TrainController : MonoBehaviour
         {
             RemoveCart();
         }
+        if (ts.lastSlicedPos >= (int)transform.position.x - 2)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GameInfo.lost = true;
+        }
     }
 
     private void FindUIResources()

@@ -51,7 +51,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        if (GameInfo.lost)
+        {
+            return;
+        }
         if (!dig)
         {
             ClimbCheck();
