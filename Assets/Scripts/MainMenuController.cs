@@ -15,12 +15,15 @@ public class MainMenuController : MonoBehaviour
     public GameObject player1Image;
     public GameObject player2Image;
     
+    [SerializeField] public AudioClip backgroundMusic;
 
 
     public UnityEngine.Color[] colors = { new Color32(0xFF, 0x7E, 0x70, 0xFF), new Color32(0xE4, 0xFF, 0x70, 0xFF), new Color32(0x70, 0xC3, 0xFF, 0xFF) };
 
     public void Start()
     {
+        SoundManager.instance.PlayMusic(backgroundMusic, GameInfo.musicVolume);
+
         player2Name = GameObject.Find("Player2Name");
         removePlayer2Button = GameObject.Find("RemovePlayer2Button");
         playerButton = GameObject.Find("Player2Button");
@@ -29,11 +32,11 @@ public class MainMenuController : MonoBehaviour
         player2Color2 = GameObject.Find("ColorP2 (2)");
         player1Image = GameObject.Find("Player1Image");
         player2Image = GameObject.Find("Player2Image");
-        player1Image.GetComponent<Image>().color = GameInfo.player1Color;
-        player2Image.GetComponent<Image>().color = GameInfo.player2Color;
         
         try 
         {
+            player1Image.GetComponent<Image>().color = GameInfo.player1Color;
+            player2Image.GetComponent<Image>().color = GameInfo.player2Color;
             player2Name.SetActive(false);
             removePlayer2Button.SetActive(false);
             player2Color.SetActive(false);
@@ -48,11 +51,13 @@ public class MainMenuController : MonoBehaviour
     public void Play()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameSettings");
+        SetMusicTime();
     }
 
     public void Settings()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+        SetMusicTime();
     }
 
     public void Quit()
@@ -63,12 +68,29 @@ public class MainMenuController : MonoBehaviour
     public void MainMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        SetMusicTime();
     }
 
     public void AddPlayer2()
     {
         GameInfo.isPlayer2Playing = true;
         GameObject.Find("Player2Image").GetComponent<Image>().enabled = true;
+        if(GameInfo.player1Color != colors[0])
+        {
+            GameInfo.player2Color = colors[0];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[0];
+        }
+        else if(GameInfo.player1Color != colors[1])
+        {
+            GameInfo.player2Color = colors[1];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[1];
+        }
+        else if(GameInfo.player1Color != colors[2])
+        {
+            GameInfo.player2Color = colors[2];
+            GameObject.Find("Player2Image").GetComponent<Image>().color = colors[2];
+        }
+        
         removePlayer2Button.SetActive(true);
         player2Name.SetActive(true);
         playerButton.SetActive(false);
@@ -80,13 +102,31 @@ public class MainMenuController : MonoBehaviour
     public void RemovePlayer2()
     {
         GameInfo.isPlayer2Playing = false;
+        GameInfo.player2Name = "Player 2";
+        GameInfo.player2Color = new Color32(0,0,0,0);
         GameObject.Find("Player2Image").GetComponent<Image>().enabled = false;
+        player2Name.GetComponent<InputField>().text = "Player 2";
         player2Name.SetActive(false);
         removePlayer2Button.SetActive(false);
         playerButton.SetActive(true);
         player2Color.SetActive(false);
         player2Color1.SetActive(false);
         player2Color2.SetActive(false);
+    }
+
+    public void MusicVolume()
+    {
+        GameInfo.musicVolume = GameObject.Find("MusicVolumeSlider").GetComponent<Slider>().value;
+    }
+
+    public void SFXVolume()
+    {
+        GameInfo.sFXVolume = GameObject.Find("SFXVolumeSlider").GetComponent<Slider>().value;
+    }
+
+    public void SetMusicTime()
+    {
+        GameInfo.musicTime = GameObject.Find("SFXObject(Clone)").GetComponent<AudioSource>().time;
     }
 
     public void PlayGame()
