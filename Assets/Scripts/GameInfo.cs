@@ -15,4 +15,8 @@ public static class GameInfo
     public static bool lost = false;
     public static bool pause = false;
 
+    public static float musicVolume = 1;
+    public static float sFXVolume = 1;
+    public static float musicTime = 0;
+
 }

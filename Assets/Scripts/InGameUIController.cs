@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class InGameUIController : MonoBehaviour
 {
+    [SerializeField] private AudioClip backgroundMusic;
+
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
@@ -39,6 +41,8 @@ public class InGameUIController : MonoBehaviour
     private enum ItemType { fuellCheese, materialCheese, mice }
 
 
+
+
     private void Start()
     {
         Time.timeScale = 1;
@@ -52,6 +56,7 @@ public class InGameUIController : MonoBehaviour
             materialCheesesP2[i].enabled = false;
             miceP2[i].enabled = false;
         }
+        SoundManager.instance.PlayMusic(backgroundMusic, GameInfo.musicVolume);
     }
     
 
