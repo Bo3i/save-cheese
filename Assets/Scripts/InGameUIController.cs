@@ -18,6 +18,13 @@ public class InGameUIController : MonoBehaviour
     private GameObject restartButton;
     private GameObject mainMenuButton;
 
+    public GameObject pauseText;
+    public GameObject PauseButtonBack;
+    public GameObject PauseButtonSettings;
+    public GameObject PauseButtonRestart;
+    public GameObject PauseButtonResume;
+    public GameObject PauseButton;
+
     private Image[] fuelCheesesP1;
     private Image[] materialCheesesP1;
     private Image[] miceP1;
@@ -34,6 +41,7 @@ public class InGameUIController : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         OnStartUI();
         for (int i = 0; i < fuelCheesesP1.Length; i++)
         {
@@ -72,6 +80,17 @@ public class InGameUIController : MonoBehaviour
             restartButton.SetActive(true);
             mainMenuButton.SetActive(true);
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Time.timeScale == 0)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
         
     }
 
@@ -109,6 +128,33 @@ public class InGameUIController : MonoBehaviour
         return imageList.ToArray();
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pauseText.SetActive(true);
+        PauseButtonBack.SetActive(true);
+        PauseButtonSettings.SetActive(true);
+        PauseButtonRestart.SetActive(true);
+        PauseButtonResume.SetActive(true);
+        PauseButton.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        pauseText.SetActive(false);
+        PauseButtonBack.SetActive(false);
+        PauseButtonSettings.SetActive(false);
+        PauseButtonRestart.SetActive(false);
+        PauseButtonResume.SetActive(false);
+        PauseButton.SetActive(true);
+    }
+
+    public void Settings()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+    }
+
     private void OnStartUI()
     {
         fuelCheesesP1 = GetImagesWithTag("FuelP1");
@@ -130,6 +176,23 @@ public class InGameUIController : MonoBehaviour
 
         mainMenuButton = GameObject.Find("Back");
         mainMenuButton.SetActive(false);
+
+        pauseText = GameObject.Find("PauseText");
+        pauseText.SetActive(false);
+
+        PauseButtonBack = GameObject.Find("PauseButtonBack");
+        PauseButtonBack.SetActive(false);
+
+        PauseButtonSettings = GameObject.Find("PauseButtonSettings");
+        PauseButtonSettings.SetActive(false);
+
+        PauseButtonRestart = GameObject.Find("PauseButtonRestart");
+        PauseButtonRestart.SetActive(false);
+
+        PauseButtonResume = GameObject.Find("PauseButtonResume");
+        PauseButtonResume.SetActive(false);
+
+        PauseButton = GameObject.Find("PauseButton");
 
         player1UI = new Image[][] { fuelCheesesP1, materialCheesesP1, miceP1 };
         player2UI = new Image[][] { fuelCheesesP2, materialCheesesP2, miceP2 };
@@ -160,6 +223,10 @@ public class InGameUIController : MonoBehaviour
 
     public void Restart()
     {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
         UnityEngine.SceneManagement.SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

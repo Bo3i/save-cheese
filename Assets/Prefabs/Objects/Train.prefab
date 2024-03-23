@@ -218,6 +218,7 @@ MonoBehaviour:
   resourcesTilemap: {fileID: 0}
   fuellTilemap: {fileID: 0}
   wallsTilemap: {fileID: 0}
+  lastSlicedPos: 0
 --- !u!114 &6679328255968751046
 MonoBehaviour:
   m_ObjectHideFlags: 0
