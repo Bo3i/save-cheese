@@ -13,4 +13,6 @@ public static class GameInfo
     public static Color player2Color = new Color32(0xE4, 0xFF, 0x70, 0xFF);
 
     public static bool lost = false;
+    public static bool pause = false;
+
 }
