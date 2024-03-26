@@ -19,7 +19,6 @@ public class StartGameCanvasController : MonoBehaviour
 
     private void Awake()
     {
-        
         player2Name = GameObject.Find("Player2Name");
         removePlayer2Button = GameObject.Find("RemovePlayer2Button");
         playerButton = GameObject.Find("Player2Button");
