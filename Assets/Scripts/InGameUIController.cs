@@ -8,11 +8,15 @@ using UnityEngine.UI;
 public class InGameUIController : MonoBehaviour
 {
     [SerializeField] private AudioClip backgroundMusic;
+    [SerializeField] private float winCondition = 4;
 
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
+    private Rigidbody2D trainRb;
+
     private TextMeshProUGUI lostText;
+    private TextMeshProUGUI wonText;
 
     private TextMeshProUGUI P1Name;
     private TextMeshProUGUI P2Name;
@@ -71,6 +75,7 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WonCheck();
         if (itemCollectorP1 != null)
         {
             UpdateInventoryUI(itemCollectorP1, player1UI);
@@ -214,6 +219,9 @@ public class InGameUIController : MonoBehaviour
         lostText = GameObject.Find("LostText").GetComponent<TextMeshProUGUI>();
         lostText.enabled = false;
 
+        wonText = GameObject.Find("WonText").GetComponent<TextMeshProUGUI>();
+        wonText.enabled = false;
+
         restartButton = GameObject.Find("Play");
         restartButton.SetActive(false);
 
@@ -239,6 +247,8 @@ public class InGameUIController : MonoBehaviour
 
         musicVol = GameObject.Find("MusicVol");
         musicVol.SetActive(false);
+
+        trainRb = GameObject.Find("Train").GetComponent<Rigidbody2D>();
 
         musicVolumeSlider = GameObject.Find("MusicVolumeSlider");
         musicVolumeSlider.GetComponent<Slider>().value = GameInfo.musicVolume;
@@ -277,6 +287,22 @@ public class InGameUIController : MonoBehaviour
             {
                 images[i].enabled = false;
             }
+        }
+    }
+
+    private void WonCheck()
+    {
+        if(trainRb.position.x >= winCondition)
+        {
+            if(Time.timeScale == 0)
+            {
+                Resume();
+            }
+            wonText.enabled = true;
+            restartButton.SetActive(true);
+            mainMenuButton.SetActive(true);
+            Time.timeScale = 0;
+            GameInfo.won = true;
         }
     }
 
