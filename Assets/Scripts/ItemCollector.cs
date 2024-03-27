@@ -9,6 +9,8 @@ using System.Globalization;
 
 public class ItemCollector : MonoBehaviour
 {
+    [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private AudioClip dropSound;
 
     [SerializeField] private Object FuellItem;
     [SerializeField] private Object ResourceItem;
@@ -82,6 +84,7 @@ public class ItemCollector : MonoBehaviour
                 {
                     newObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dir.x * throwStrengt + 0.5f * rb.velocity.x, dir.y * throwStrengt + 0.5f * rb.velocity.y), ForceMode2D.Impulse);
                 }
+                SoundManager.instance.PlaySound(dropSound, GameInfo.sFXVolume);
             }
         }
     }

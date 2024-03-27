@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private bool jump = false;
     private bool dig = false;
 
+    [SerializeField] private AudioClip jumpSound;
+
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
@@ -81,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         if (jump && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
         }
     }
 
@@ -91,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
             if (jump && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
             }
             else if (jump)
             {

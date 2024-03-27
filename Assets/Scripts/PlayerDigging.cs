@@ -14,6 +14,8 @@ public class PlayerDigging : MonoBehaviour
     private Tilemap resourcesTilemap;
     private Tilemap fuellTilemap;
 
+    [SerializeField] private AudioClip digSound;
+
     [SerializeField] private TileBase tile;
     [SerializeField] private TileBase noEntranceCheese;
 
@@ -292,6 +294,7 @@ public class PlayerDigging : MonoBehaviour
                 cell.y += (int)dir.y;
                 if (retDugTile(cell) != null && retDugTile(cell) != noEntranceCheese)
                 {
+                    SoundManager.instance.PlaySound(digSound, GameInfo.sFXVolume);
                     digging = true;
                     int an = UpdateAimation(dir);
                     tilemap.SetTileFlags(cell, TileFlags.None);
