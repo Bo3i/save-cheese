@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiceCartController : MonoBehaviour
 {
 
-    private bool isFull;
+    public bool isFull;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Animator anim;

@@ -72,7 +72,6 @@ public class InGameUIController : MonoBehaviour
     }
     
 
-    // Update is called once per frame
     void Update()
     {
         WonCheck();
@@ -292,7 +291,7 @@ public class InGameUIController : MonoBehaviour
 
     private void WonCheck()
     {
-        if(trainRb.position.x >= winCondition)
+        if(GameInfo.won)
         {
             if(Time.timeScale == 0)
             {
@@ -302,7 +301,7 @@ public class InGameUIController : MonoBehaviour
             restartButton.SetActive(true);
             mainMenuButton.SetActive(true);
             Time.timeScale = 0;
-            GameInfo.won = true;
+            GameInfo.won = false;
         }
     }
 

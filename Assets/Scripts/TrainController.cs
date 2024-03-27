@@ -17,7 +17,7 @@ public class TrainController : MonoBehaviour
     private Slider fuelSlider;
     private Image[] trainResourcesUI = new Image[3];
     private int resourceCount;
-    private int maxCarts = 5;
+    private int maxCarts = 2;
     private int currentCarts;
     private Object[] carts;
     private TerrainSlicer ts;
@@ -37,6 +37,7 @@ public class TrainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WinCheck();
         Move();
         ProgressBarrUpdate();
         SlicerCheck();
@@ -76,6 +77,40 @@ public class TrainController : MonoBehaviour
             {
                 trainResourcesUI[i].enabled = false;
             }
+        }
+    }
+
+    private void WinCheck()
+    {
+        bool win = false;
+        Debug.Log("Currentcarts: " + currentCarts);
+        Debug.Log("Maxcarts: " + maxCarts);
+        if (currentCarts == maxCarts)
+        {
+            win = true;
+            foreach (Object cart in carts)
+            {
+                if (cart == null)
+                {
+                    Debug.Log("Cart null: " + true);
+                    win = false;
+                    break;
+                }
+
+                if (((GameObject)cart).GetComponent<MiceCartController>().isFull == false)
+                {
+                    Debug.Log("Cart full: " + false);
+                    win = false;
+                    break;
+                }
+                
+                Debug.Log("Cart full");
+            }
+            
+        }
+        if (win)
+        {
+            GameInfo.won = true;
         }
     }
 
