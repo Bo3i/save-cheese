@@ -287,6 +287,7 @@ public class InGameUIController : MonoBehaviour
 
     public void NextLevel()
     {
+
         StartCoroutine(TrainExit());
     }
 
@@ -294,9 +295,11 @@ public class InGameUIController : MonoBehaviour
     {
         GameObject train = GameObject.Find("Train");
         Rigidbody2D trb = train.GetComponent<Rigidbody2D>();
+        TrainController tctrl = train.GetComponent<TrainController>();
         for(float i = 0; i>=0; i -= 0.05f)
         {
             trb.position = new Vector2(trb.position.x + 1, trb.position.y);
+            tctrl.MoveCarts();
             yield return null;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

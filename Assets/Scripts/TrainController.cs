@@ -159,7 +159,7 @@ public class TrainController : MonoBehaviour
         }
     }
 
-    private void MoveCarts()
+    public void MoveCarts()
     {
         for (int i = 0; i < currentCarts; i++)
         {
