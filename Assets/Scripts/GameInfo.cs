@@ -20,4 +20,5 @@ public static class GameInfo
     public static float sFXVolume = 1;
     public static float musicTime = 0;
 
+    public static int levels=2;
 }

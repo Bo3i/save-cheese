@@ -9,6 +9,8 @@ public class InGameUIController : MonoBehaviour
 {
     [SerializeField] private AudioClip backgroundMusic;
 
+    private Vector3 camerapos;
+
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
@@ -48,6 +50,8 @@ public class InGameUIController : MonoBehaviour
     private Image[][] player1UI;
     private Image[][] player2UI;
 
+    private bool end = false;
+    private float trainEnum =0;
     private enum ItemType { fuellCheese, materialCheese, mice }
 
     private void Start()
@@ -107,6 +111,10 @@ public class InGameUIController : MonoBehaviour
             {
                 Pause();
             }
+        }
+        if (end)
+        {
+            TrainExit();
         }
         
     }
@@ -288,24 +296,38 @@ public class InGameUIController : MonoBehaviour
     public void NextLevel()
     {
         Debug.Log("Next Level");
-        StartCoroutine(TrainExit());
+        end = true;
+        Transform camera = GameObject.Find("Train").transform.Find("Main Camera");
+        camerapos = camera.position;
     }
 
-    private IEnumerator TrainExit()
+    private void TrainExit()
     {
         Debug.Log("Train Exit");
         GameObject train = GameObject.Find("Train");
         Rigidbody2D trb = train.GetComponent<Rigidbody2D>();
         TrainController tctrl = train.GetComponent<TrainController>();
-        for(float i = 0; i>=0; i -= 0.001f)
+        Transform camera = train.transform.Find("Main Camera");
+        camera.position = camerapos;
+        Time.timeScale = 1;
+        Debug.Log("Train Exit Loop");
+        trb.position = new Vector2(trb.position.x + .1f, trb.position.y);
+        tctrl.MoveCarts();
+        trainEnum += 1;
+        if (trainEnum >= 300)
         {
-            Debug.Log("Train Exit Loop");
-            Time.timeScale = 1;
-            trb.position = new Vector2(trb.position.x + 1, trb.position.y);
-            tctrl.MoveCarts();
-            yield return null;
+            trainEnum = 0;
+            if (SceneManager.GetActiveScene().buildIndex < GameInfo.levels)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else if(SceneManager.GetActiveScene().buildIndex == GameInfo.levels)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 
     private void WonCheck()
