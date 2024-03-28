@@ -6,6 +6,7 @@ public class ItemCollision : MonoBehaviour
 {
     ItemCollector pl;
     int[] inventory;
+    [SerializeField] private AudioClip pickupSound;
     private enum ItemType { fuellCheese, materialCheese, mice }
 
     private void Start()
@@ -46,7 +47,7 @@ public class ItemCollision : MonoBehaviour
             inventory[(int)ItemType.materialCheese]++;
             //pl.UpdateInventoryUI();
         }
-
+        //SoundManager.instance.PlaySound(pickupSound, GameInfo.sFXVolume);
     }
     
 }

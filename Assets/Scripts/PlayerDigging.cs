@@ -294,7 +294,7 @@ public class PlayerDigging : MonoBehaviour
                 cell.y += (int)dir.y;
                 if (retDugTile(cell) != null && retDugTile(cell) != noEntranceCheese)
                 {
-                    SoundManager.instance.PlaySound(digSound, GameInfo.sFXVolume);
+                    //SoundManager.instance.PlaySound(digSound, GameInfo.sFXVolume);
                     digging = true;
                     int an = UpdateAimation(dir);
                     tilemap.SetTileFlags(cell, TileFlags.None);

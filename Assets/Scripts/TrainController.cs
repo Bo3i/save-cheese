@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class TrainController : MonoBehaviour
 {
-    [SerializeField] private float speed = 0.1f;
+    [SerializeField] private float speed = 1f;
     [SerializeField] private float fuel = 300f;
-    [SerializeField] private float fuelConsumption = 0.01f;
+    [SerializeField] private float fuelConsumption = 0.1f;
     [SerializeField] Object MiceCart;
     [SerializeField] private float offset = 1.5f;
 
@@ -83,8 +83,6 @@ public class TrainController : MonoBehaviour
     private void WinCheck()
     {
         bool win = false;
-        Debug.Log("Currentcarts: " + currentCarts);
-        Debug.Log("Maxcarts: " + maxCarts);
         if (currentCarts == maxCarts)
         {
             win = true;
@@ -92,19 +90,15 @@ public class TrainController : MonoBehaviour
             {
                 if (cart == null)
                 {
-                    Debug.Log("Cart null: " + true);
                     win = false;
                     break;
                 }
 
                 if (((GameObject)cart).GetComponent<MiceCartController>().isFull == false)
                 {
-                    Debug.Log("Cart full: " + false);
                     win = false;
                     break;
                 }
-                
-                Debug.Log("Cart full");
             }
             
         }
@@ -129,8 +123,6 @@ public class TrainController : MonoBehaviour
         }
         MoveCarts();
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

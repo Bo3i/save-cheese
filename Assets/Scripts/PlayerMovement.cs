@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         if (jump && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
+            //SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
         }
     }
 
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
             if (jump && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
+                //SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
             }
             else if (jump)
             {

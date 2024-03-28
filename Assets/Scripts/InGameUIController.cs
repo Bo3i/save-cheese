@@ -8,12 +8,9 @@ using UnityEngine.UI;
 public class InGameUIController : MonoBehaviour
 {
     [SerializeField] private AudioClip backgroundMusic;
-    [SerializeField] private float winCondition = 4;
 
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
-
-    private Rigidbody2D trainRb;
 
     private TextMeshProUGUI lostText;
     private TextMeshProUGUI wonText;
@@ -51,9 +48,6 @@ public class InGameUIController : MonoBehaviour
     private Image[][] player2UI;
 
     private enum ItemType { fuellCheese, materialCheese, mice }
-
-
-
 
     private void Start()
     {
@@ -246,8 +240,6 @@ public class InGameUIController : MonoBehaviour
 
         musicVol = GameObject.Find("MusicVol");
         musicVol.SetActive(false);
-
-        trainRb = GameObject.Find("Train").GetComponent<Rigidbody2D>();
 
         musicVolumeSlider = GameObject.Find("MusicVolumeSlider");
         musicVolumeSlider.GetComponent<Slider>().value = GameInfo.musicVolume;
