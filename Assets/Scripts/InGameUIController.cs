@@ -19,6 +19,7 @@ public class InGameUIController : MonoBehaviour
     private TextMeshProUGUI P2Name;
 
     private GameObject restartButton;
+    private GameObject nextLevelButton;
     private GameObject mainMenuButton;
 
     public GameObject pauseText;
@@ -248,6 +249,9 @@ public class InGameUIController : MonoBehaviour
         PauseButtonSettingsBack = GameObject.Find("PauseButtonSettngsBack");
         PauseButtonSettingsBack.SetActive(false);
 
+        nextLevelButton = GameObject.Find("NextLevelButton");
+        nextLevelButton.SetActive(false);
+
         FXVol = GameObject.Find("FXVol");
         SFXVolumeSlider = GameObject.Find("SFXVolumeSlider");
         SFXVolumeSlider.GetComponent<Slider>().value = GameInfo.sFXVolume;
@@ -281,6 +285,23 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
+    public void NextLevel()
+    {
+        StartCoroutine(TrainExit());
+    }
+
+    private IEnumerator TrainExit()
+    {
+        GameObject train = GameObject.Find("Train");
+        Rigidbody2D trb = train.GetComponent<Rigidbody2D>();
+        for(float i = 0; i>=0; i -= 0.05f)
+        {
+            trb.position = new Vector2(trb.position.x + 1, trb.position.y);
+            yield return null;
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     private void WonCheck()
     {
         if(GameInfo.won)
@@ -290,7 +311,7 @@ public class InGameUIController : MonoBehaviour
                 Resume();
             }
             wonText.enabled = true;
-            restartButton.SetActive(true);
+            nextLevelButton.SetActive(true);
             mainMenuButton.SetActive(true);
             Time.timeScale = 0;
             GameInfo.won = false;
