@@ -9,7 +9,12 @@ public class InGameUIController : MonoBehaviour
 {
     [SerializeField] private AudioClip backgroundMusic;
 
-    private Vector3 camerapos;
+    private Vector3 mCamerapos;
+
+    GameObject train;
+    Rigidbody2D trb;
+    TrainController tctrl;
+    Transform mCamera;
 
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
@@ -215,6 +220,11 @@ public class InGameUIController : MonoBehaviour
         materialCheesesP2 = GetImagesWithTag("ResourceP2");
         miceP2 = GetImagesWithTag("MouseP2");
 
+        train = GameObject.Find("Train");
+        trb = train.GetComponent<Rigidbody2D>();
+        tctrl = train.GetComponent<TrainController>();
+        mCamera = train.transform.Find("Main Camera");
+
         P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
         P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
 
@@ -297,21 +307,16 @@ public class InGameUIController : MonoBehaviour
     {
         Debug.Log("Next Level");
         end = true;
-        Transform camera = GameObject.Find("Train").transform.Find("Main Camera");
-        camerapos = camera.position;
+        mCamerapos = mCamera.position;
     }
 
     private void TrainExit()
     {
         Debug.Log("Train Exit");
-        GameObject train = GameObject.Find("Train");
-        Rigidbody2D trb = train.GetComponent<Rigidbody2D>();
-        TrainController tctrl = train.GetComponent<TrainController>();
-        Transform camera = train.transform.Find("Main Camera");
-        camera.position = camerapos;
+        mCamera.position = mCamerapos;
         Time.timeScale = 1;
         Debug.Log("Train Exit Loop");
-        trb.position = new Vector2(trb.position.x + .1f, trb.position.y);
+        trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
         tctrl.MoveCarts();
         trainEnum += 1;
         if (trainEnum >= 300)
@@ -325,9 +330,7 @@ public class InGameUIController : MonoBehaviour
             {
                 SceneManager.LoadScene("MainMenu");
             }
-
         }
-
     }
 
     private void WonCheck()
