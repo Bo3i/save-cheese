@@ -287,17 +287,20 @@ public class InGameUIController : MonoBehaviour
 
     public void NextLevel()
     {
-
+        Debug.Log("Next Level");
         StartCoroutine(TrainExit());
     }
 
     private IEnumerator TrainExit()
     {
+        Debug.Log("Train Exit");
         GameObject train = GameObject.Find("Train");
         Rigidbody2D trb = train.GetComponent<Rigidbody2D>();
         TrainController tctrl = train.GetComponent<TrainController>();
-        for(float i = 0; i>=0; i -= 0.05f)
+        for(float i = 0; i>=0; i -= 0.001f)
         {
+            Debug.Log("Train Exit Loop");
+            Time.timeScale = 1;
             trb.position = new Vector2(trb.position.x + 1, trb.position.y);
             tctrl.MoveCarts();
             yield return null;
