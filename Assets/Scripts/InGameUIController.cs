@@ -216,6 +216,12 @@ public class InGameUIController : MonoBehaviour
 
     private void OnStartUI()
     {
+        train = GameObject.Find("Train");
+        trb = train.GetComponent<Rigidbody2D>();
+        tctrl = train.GetComponent<TrainController>();
+        mCamera = train.transform.Find("Main Camera");
+
+
         fuelCheesesP1 = GetImagesWithTag("FuelP1");
         materialCheesesP1 = GetImagesWithTag("ResourceP1");
         miceP1 = GetImagesWithTag("MouseP1");
@@ -223,10 +229,6 @@ public class InGameUIController : MonoBehaviour
         fuelCheesesP2 = GetImagesWithTag("FuelP2");
         materialCheesesP2 = GetImagesWithTag("ResourceP2");
         miceP2 = GetImagesWithTag("MouseP2");
-        train = GameObject.Find("Train");
-        trb = train.GetComponent<Rigidbody2D>();
-        tctrl = train.GetComponent<TrainController>();
-        mCamera = train.transform.Find("Main Camera");
         grayBack = GameObject.Find("GrayBack");
         grayBack.GetComponent<Image>().enabled = false;
         
@@ -310,23 +312,27 @@ public class InGameUIController : MonoBehaviour
 
     public void NextLevel()
     {
-        Debug.Log("Next Level");
+        wonText.enabled = false;
+        nextLevelButton.SetActive(false);
+        mainMenuButton.SetActive(false);
+        restartButton.SetActive(false);
+        grayBack.GetComponent<Image>().enabled = false; 
         end = true;
         mCamerapos = mCamera.position;
     }
 
     private void TrainExit()
     {
-        Debug.Log("Train Exit");
         mCamera.position = mCamerapos;
         Time.timeScale = 1;
-        Debug.Log("Train Exit Loop");
         trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
         tctrl.MoveCarts();
         trainEnum += 1;
         if (trainEnum >= 300)
         {
+            end = false;
             trainEnum = 0;
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
             if (SceneManager.GetActiveScene().buildIndex < GameInfo.levels)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -346,6 +352,7 @@ public class InGameUIController : MonoBehaviour
             {
                 Resume();
             }
+            grayBack.GetComponent<Image>().enabled = true;
             wonText.enabled = true;
             nextLevelButton.SetActive(true);
             mainMenuButton.SetActive(true);

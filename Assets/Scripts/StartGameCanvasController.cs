@@ -41,6 +41,15 @@ public class StartGameCanvasController : MonoBehaviour
 
     public void Play()
     {
+        try
+        {
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Level");
+
+        }
+        catch
+        {
+            Debug.Log("No level scene to unload");
+        }
         UnityEngine.SceneManagement.SceneManager.LoadScene("Level");
     }
 
