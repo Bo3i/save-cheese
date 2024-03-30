@@ -19,6 +19,8 @@ public class InGameUIController : MonoBehaviour
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
+    private GameObject grayBack;
+
     private TextMeshProUGUI lostText;
     private TextMeshProUGUI wonText;
 
@@ -167,6 +169,7 @@ public class InGameUIController : MonoBehaviour
         PauseButtonRestart.SetActive(true);
         PauseButtonResume.SetActive(true);
         PauseButton.SetActive(false);
+        grayBack.GetComponent<Image>().enabled = true;
     }
 
     public void Resume()
@@ -178,6 +181,7 @@ public class InGameUIController : MonoBehaviour
         PauseButtonRestart.SetActive(false);
         PauseButtonResume.SetActive(false);
         PauseButton.SetActive(true);
+        grayBack.GetComponent<Image>().enabled = false;
     }
 
     public void Settings()
@@ -219,12 +223,13 @@ public class InGameUIController : MonoBehaviour
         fuelCheesesP2 = GetImagesWithTag("FuelP2");
         materialCheesesP2 = GetImagesWithTag("ResourceP2");
         miceP2 = GetImagesWithTag("MouseP2");
-
         train = GameObject.Find("Train");
         trb = train.GetComponent<Rigidbody2D>();
         tctrl = train.GetComponent<TrainController>();
         mCamera = train.transform.Find("Main Camera");
-
+        grayBack = GameObject.Find("GrayBack");
+        grayBack.GetComponent<Image>().enabled = false;
+        
         P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
         P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
 
