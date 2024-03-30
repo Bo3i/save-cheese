@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class TrainController : MonoBehaviour
 {
-    [SerializeField] private float speed = 0.1f;
+    [SerializeField] private float speed = 1f;
     [SerializeField] private float fuel = 300f;
-    [SerializeField] private float fuelConsumption = 0.01f;
+    [SerializeField] private float fuelConsumption = 0.1f;
     [SerializeField] Object MiceCart;
     [SerializeField] private float offset = 1.5f;
 
@@ -17,7 +17,7 @@ public class TrainController : MonoBehaviour
     private Slider fuelSlider;
     private Image[] trainResourcesUI = new Image[3];
     private int resourceCount;
-    private int maxCarts = 5;
+    private int maxCarts = 2;
     private int currentCarts;
     private Object[] carts;
     private TerrainSlicer ts;
@@ -37,6 +37,7 @@ public class TrainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WinCheck();
         Move();
         ProgressBarrUpdate();
         SlicerCheck();
@@ -79,6 +80,34 @@ public class TrainController : MonoBehaviour
         }
     }
 
+    private void WinCheck()
+    {
+        bool win = false;
+        if (currentCarts == maxCarts)
+        {
+            win = true;
+            foreach (Object cart in carts)
+            {
+                if (cart == null)
+                {
+                    win = false;
+                    break;
+                }
+
+                if (((GameObject)cart).GetComponent<MiceCartController>().isFull == false)
+                {
+                    win = false;
+                    break;
+                }
+            }
+            
+        }
+        if (win)
+        {
+            GameInfo.won = true;
+        }
+    }
+
     private void Move()
     {
         if(HasFuell())
@@ -94,8 +123,6 @@ public class TrainController : MonoBehaviour
         }
         MoveCarts();
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -132,7 +159,7 @@ public class TrainController : MonoBehaviour
         }
     }
 
-    private void MoveCarts()
+    public void MoveCarts()
     {
         for (int i = 0; i < currentCarts; i++)
         {
@@ -179,4 +206,5 @@ public class TrainController : MonoBehaviour
         }
         return ret;
     }
-}
+
+    }

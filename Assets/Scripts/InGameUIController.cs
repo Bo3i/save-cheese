@@ -9,17 +9,26 @@ public class InGameUIController : MonoBehaviour
 {
     [SerializeField] private AudioClip backgroundMusic;
 
+    private Vector3 mCamerapos;
+
+    GameObject train;
+    Rigidbody2D trb;
+    TrainController tctrl;
+    Transform mCamera;
+
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
     private GameObject grayBack;
 
     private TextMeshProUGUI lostText;
+    private TextMeshProUGUI wonText;
 
     private TextMeshProUGUI P1Name;
     private TextMeshProUGUI P2Name;
 
     private GameObject restartButton;
+    private GameObject nextLevelButton;
     private GameObject mainMenuButton;
 
     public GameObject pauseText;
@@ -48,6 +57,8 @@ public class InGameUIController : MonoBehaviour
     private Image[][] player1UI;
     private Image[][] player2UI;
 
+    private bool end = false;
+    private float trainEnum =0;
     private enum ItemType { fuellCheese, materialCheese, mice }
 
     private void Start()
@@ -67,9 +78,9 @@ public class InGameUIController : MonoBehaviour
     }
     
 
-    // Update is called once per frame
     void Update()
     {
+        WonCheck();
         if (itemCollectorP1 != null)
         {
             UpdateInventoryUI(itemCollectorP1, player1UI);
@@ -107,6 +118,10 @@ public class InGameUIController : MonoBehaviour
             {
                 Pause();
             }
+        }
+        if (end)
+        {
+            TrainExit();
         }
         
     }
@@ -208,15 +223,21 @@ public class InGameUIController : MonoBehaviour
         fuelCheesesP2 = GetImagesWithTag("FuelP2");
         materialCheesesP2 = GetImagesWithTag("ResourceP2");
         miceP2 = GetImagesWithTag("MouseP2");
-
+        train = GameObject.Find("Train");
+        trb = train.GetComponent<Rigidbody2D>();
+        tctrl = train.GetComponent<TrainController>();
+        mCamera = train.transform.Find("Main Camera");
         grayBack = GameObject.Find("GrayBack");
         grayBack.GetComponent<Image>().enabled = false;
-
+        
         P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
         P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
 
         lostText = GameObject.Find("LostText").GetComponent<TextMeshProUGUI>();
         lostText.enabled = false;
+
+        wonText = GameObject.Find("WonText").GetComponent<TextMeshProUGUI>();
+        wonText.enabled = false;
 
         restartButton = GameObject.Find("Play");
         restartButton.SetActive(false);
@@ -251,6 +272,9 @@ public class InGameUIController : MonoBehaviour
         PauseButtonSettingsBack = GameObject.Find("PauseButtonSettngsBack");
         PauseButtonSettingsBack.SetActive(false);
 
+        nextLevelButton = GameObject.Find("NextLevelButton");
+        nextLevelButton.SetActive(false);
+
         FXVol = GameObject.Find("FXVol");
         SFXVolumeSlider = GameObject.Find("SFXVolumeSlider");
         SFXVolumeSlider.GetComponent<Slider>().value = GameInfo.sFXVolume;
@@ -281,6 +305,52 @@ public class InGameUIController : MonoBehaviour
             {
                 images[i].enabled = false;
             }
+        }
+    }
+
+    public void NextLevel()
+    {
+        Debug.Log("Next Level");
+        end = true;
+        mCamerapos = mCamera.position;
+    }
+
+    private void TrainExit()
+    {
+        Debug.Log("Train Exit");
+        mCamera.position = mCamerapos;
+        Time.timeScale = 1;
+        Debug.Log("Train Exit Loop");
+        trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
+        tctrl.MoveCarts();
+        trainEnum += 1;
+        if (trainEnum >= 300)
+        {
+            trainEnum = 0;
+            if (SceneManager.GetActiveScene().buildIndex < GameInfo.levels)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else if(SceneManager.GetActiveScene().buildIndex == GameInfo.levels)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
+    }
+
+    private void WonCheck()
+    {
+        if(GameInfo.won)
+        {
+            if(Time.timeScale == 0)
+            {
+                Resume();
+            }
+            wonText.enabled = true;
+            nextLevelButton.SetActive(true);
+            mainMenuButton.SetActive(true);
+            Time.timeScale = 0;
+            GameInfo.won = false;
         }
     }
 

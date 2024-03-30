@@ -13,10 +13,12 @@ public static class GameInfo
     public static Color player2Color = new Color32(0xF4, 0xFF, 0x70, 0xFF);
 
     public static bool lost = false;
+    public static bool won = false;
     public static bool pause = false;
 
     public static float musicVolume = 1;
     public static float sFXVolume = 1;
     public static float musicTime = 0;
 
+    public static int levels=2;
 }
