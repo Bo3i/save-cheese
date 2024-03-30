@@ -316,13 +316,15 @@ public class InGameUIController : MonoBehaviour
         nextLevelButton.SetActive(false);
         mainMenuButton.SetActive(false);
         restartButton.SetActive(false);
-        grayBack.GetComponent<Image>().enabled = false; 
+        grayBack.GetComponent<Image>().enabled = false;
+
         end = true;
         mCamerapos = mCamera.position;
     }
 
     private void TrainExit()
     {
+       
         mCamera.position = mCamerapos;
         Time.timeScale = 1;
         trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);

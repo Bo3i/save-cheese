@@ -44,7 +44,6 @@ public class StartGameCanvasController : MonoBehaviour
         try
         {
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Level");
-
         }
         catch
         {
