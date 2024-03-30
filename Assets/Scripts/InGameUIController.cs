@@ -19,8 +19,6 @@ public class InGameUIController : MonoBehaviour
     private ItemCollector itemCollectorP1;
     private ItemCollector itemCollectorP2;
 
-    private GameObject grayBack;
-
     private TextMeshProUGUI lostText;
     private TextMeshProUGUI wonText;
 
@@ -169,7 +167,6 @@ public class InGameUIController : MonoBehaviour
         PauseButtonRestart.SetActive(true);
         PauseButtonResume.SetActive(true);
         PauseButton.SetActive(false);
-        grayBack.GetComponent<Image>().enabled = true;
     }
 
     public void Resume()
@@ -181,7 +178,6 @@ public class InGameUIController : MonoBehaviour
         PauseButtonRestart.SetActive(false);
         PauseButtonResume.SetActive(false);
         PauseButton.SetActive(true);
-        grayBack.GetComponent<Image>().enabled = false;
     }
 
     public void Settings()
