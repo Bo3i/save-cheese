@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e7b2cba64b22c4698f6d953be58ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSound: {fileID: 8300000, guid: 308ffee6f005b4c629b4a36211d7f34b, type: 3}
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
@@ -334,6 +335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e6c7682efee90469002eafce503408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 0}
+  dropSound: {fileID: 0}
   FuellItem: {fileID: 2159068168354825354, guid: caba09b37ee80d94a983b5e29ac2151d, type: 3}
   ResourceItem: {fileID: 5657999085346647397, guid: 07deb034a5d3431478678df23d5ab445, type: 3}
   Mouse: {fileID: 904763863181609880, guid: f4e012d10ed7a704b85d1c4a017dd529, type: 3}
@@ -351,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99b5b6ffacc8964d805cdd4cfc56a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digSound: {fileID: 0}
   tile: {fileID: 11400000, guid: 250f6b903e11b5142ad219b6f5aaa1d0, type: 2}
   noEntranceCheese: {fileID: 11400000, guid: 1136720e48ea4544a99b5e23965d3e44, type: 2}
   cheeseLeftTop: {fileID: 11400000, guid: abb39abe5247f99448c4fc1b1b4eac34, type: 2}
@@ -558,3 +562,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa1d233224892b4da30eee67b2dc7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 0}

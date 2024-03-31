@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     private enum MovementState { idle, running, jumping, falling}
 
-    // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         dig = callback.action.triggered;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (GameInfo.lost)
@@ -83,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if (jump && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            //SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
+            SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
         }
     }
 
@@ -94,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             if (jump && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                //SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
+                SoundManager.instance.PlaySound(jumpSound, GameInfo.sFXVolume);
             }
             else if (jump)
             {
