@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGameCanvasController : MonoBehaviour
@@ -43,13 +44,13 @@ public class StartGameCanvasController : MonoBehaviour
     {
         try
         {
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Level");
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
         catch
         {
             Debug.Log("No level scene to unload");
         }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     public void AddPlayer2()

@@ -10,6 +10,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private AudioClip backgroundMusic;
 
     private Vector3 mCamerapos;
+    private bool pausable = true;
 
     GameObject train;
     Rigidbody2D trb;
@@ -37,8 +38,10 @@ public class InGameUIController : MonoBehaviour
     public GameObject PauseButtonRestart;
     public GameObject PauseButtonResume;
     public GameObject PauseButton;
+    public GameObject helpButton;
 
     public GameObject PauseButtonSettingsBack;
+    private GameObject HelpCanvas;
 
     private GameObject musicVol;
     private GameObject musicVolumeSlider;
@@ -103,7 +106,7 @@ public class InGameUIController : MonoBehaviour
             restartButton.SetActive(true);
             mainMenuButton.SetActive(true);
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && pausable)
         {
             if(Time.timeScale == 0)
             {
@@ -163,6 +166,7 @@ public class InGameUIController : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        helpButton.SetActive(false);
         pauseText.SetActive(true);
         PauseButtonBack.SetActive(true);
         PauseButtonSettings.SetActive(true);
@@ -231,6 +235,12 @@ public class InGameUIController : MonoBehaviour
         miceP2 = GetImagesWithTag("MouseP2");
         grayBack = GameObject.Find("GrayBack");
         grayBack.GetComponent<Image>().enabled = false;
+
+        helpButton = GameObject.Find("Help");
+        helpButton.SetActive(true);
+
+        HelpCanvas = GameObject.Find("HelpCanvas");
+        HelpCanvas.SetActive(false);
         
         P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
         P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
@@ -312,6 +322,7 @@ public class InGameUIController : MonoBehaviour
 
     public void NextLevel()
     {
+        pausable = false;
         wonText.enabled = false;
         nextLevelButton.SetActive(false);
         mainMenuButton.SetActive(false);
@@ -324,7 +335,7 @@ public class InGameUIController : MonoBehaviour
 
     private void TrainExit()
     {
-       
+        pausable = false;
         mCamera.position = mCamerapos;
         Time.timeScale = 1;
         trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
@@ -386,5 +397,25 @@ public class InGameUIController : MonoBehaviour
     {
         GameInfo.isPlayer2Playing = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Help()
+    {
+        if (HelpCanvas.activeSelf)
+        {
+            PauseButton.SetActive(true);
+            pausable = true;
+            Time.timeScale = 1;
+            HelpCanvas.SetActive(false);
+            grayBack.GetComponent<Image>().enabled = false;
+        }
+        else
+        {
+            PauseButton.SetActive(false);
+            pausable = false;
+            Time.timeScale = 0;
+            HelpCanvas.SetActive(true);
+            grayBack.GetComponent<Image>().enabled = true;
+        }
     }
 }
