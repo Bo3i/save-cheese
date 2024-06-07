@@ -179,6 +179,7 @@ public class InGameUIController : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
+        helpButton.SetActive(true);
         pauseText.SetActive(false);
         PauseButtonBack.SetActive(false);
         PauseButtonSettings.SetActive(false);
