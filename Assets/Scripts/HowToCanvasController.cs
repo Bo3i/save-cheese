@@ -22,9 +22,22 @@ public class HowToCanvasController : MonoBehaviour
         
     }
 
-    public void Play()
+    public void Next()
     {
         HowToCanvas.SetActive(false);
         HelpCanvas.SetActive(true);
+    }
+
+    public void Play()
+    {
+        try
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        catch
+        {
+            Debug.Log("No level scene to unload");
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
