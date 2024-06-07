@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,7 +10,7 @@ public class TrainController : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private float fuel = 300f;
     [SerializeField] private float fuelConsumption = 0.1f;
-    [SerializeField] Object MiceCart;
+    [SerializeField] UnityEngine.Object MiceCart;
     [SerializeField] private float offset = 1.5f;
 
     private Rigidbody2D rb;
@@ -19,7 +20,7 @@ public class TrainController : MonoBehaviour
     private int resourceCount;
     private int maxCarts = 2;
     private int currentCarts;
-    private Object[] carts;
+    private UnityEngine.Object[] carts;
     private TerrainSlicer ts;
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class TrainController : MonoBehaviour
         ts = GetComponent<TerrainSlicer>();
         fuelSlider = GameObject.Find("TrainFuellProgressBar").GetComponent<Slider>();
         FindUIResources();
-        carts = new Object[maxCarts];
+        carts = new UnityEngine.Object[maxCarts];
         currentCarts = 0;
         resourceCount = 0;
     }
@@ -66,7 +67,11 @@ public class TrainController : MonoBehaviour
 
     private void ProgressBarrUpdate()
     {
-        fuelSlider.value = fuel / 300;
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+        fuelSlider.value = (fuel / 300f)*0.2f+0.8f;
         for (int i = 0; i < 3; i++)
         {
             if (i < resourceCount)
@@ -86,7 +91,7 @@ public class TrainController : MonoBehaviour
         if (currentCarts == maxCarts)
         {
             win = true;
-            foreach (Object cart in carts)
+            foreach (UnityEngine.Object cart in carts)
             {
                 if (cart == null)
                 {
@@ -112,6 +117,10 @@ public class TrainController : MonoBehaviour
     {
         if(HasFuell())
         {
+            if(Time.timeScale == 0)
+            {
+                return;
+            }
             rb.velocity = new Vector2(speed, 0);
             fuel -= fuelConsumption;
             anim.SetBool("Moving", true);

@@ -317,7 +317,7 @@ public class InGameUIController : MonoBehaviour
         mainMenuButton.SetActive(false);
         restartButton.SetActive(false);
         grayBack.GetComponent<Image>().enabled = false;
-
+        PauseButton.SetActive(false);
         end = true;
         mCamerapos = mCamera.position;
     }
