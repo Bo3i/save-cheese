@@ -12,13 +12,14 @@ public class TrainController : MonoBehaviour
     [SerializeField] private float fuelConsumption = 0.1f;
     [SerializeField] UnityEngine.Object MiceCart;
     [SerializeField] private float offset = 1.5f;
+    [SerializeField] private int levelWidth = 97;
 
     private Rigidbody2D rb;
     private Animator anim;
     private Slider fuelSlider;
     private Image[] trainResourcesUI = new Image[3];
     private int resourceCount;
-    private int maxCarts = 2;
+    private int maxCarts = 3;
     private int currentCarts;
     private UnityEngine.Object[] carts;
     private TerrainSlicer ts;
@@ -115,7 +116,7 @@ public class TrainController : MonoBehaviour
 
     private void Move()
     {
-        if(HasFuell())
+        if(HasFuell() && Convert.ToInt32(rb.position.x) != levelWidth)
         {
             if(Time.timeScale == 0)
             {
@@ -125,11 +126,19 @@ public class TrainController : MonoBehaviour
             fuel -= fuelConsumption;
             anim.SetBool("Moving", true);
         }
+        else if (Convert.ToInt32(rb.position.x) == levelWidth)
+        {
+            rb.velocity = new Vector2(0, 0);
+            anim.SetBool("Moving", false);
+            GameInfo.won = false;
+            GameInfo.lost = true;
+        }
         else
         {
             rb.velocity = new Vector2(0, 0);
             anim.SetBool("Moving", false);
         }
+
         MoveCarts();
     }
 

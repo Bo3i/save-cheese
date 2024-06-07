@@ -9,6 +9,7 @@ public class CanvasController : MonoBehaviour
     public GameObject settingsCanvas;
     public GameObject startGameCanvas;
 
+
     void Start()
     {
         mainMenuCanvas = GameObject.Find("MainMenuCanvas");
