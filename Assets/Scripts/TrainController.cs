@@ -129,12 +129,14 @@ public class TrainController : MonoBehaviour
             fuel -= fuelConsumption;
             anim.SetBool("Moving", true);
         }
-        else if (Convert.ToInt32(t.position.x) == levelWidth)
+        else if (Convert.ToInt32(t.position.x) == levelWidth && !GameInfo.won)
         {
             rb.velocity = new Vector2(0, 0);
             anim.SetBool("Moving", false);
             GameInfo.won = false;
             GameInfo.lost = true;
+            Time.timeScale = 0;
+            Debug.Log("Game Over");
         }
         else
         {
