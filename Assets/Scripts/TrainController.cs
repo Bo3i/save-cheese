@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,17 +10,19 @@ public class TrainController : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private float fuel = 300f;
     [SerializeField] private float fuelConsumption = 0.1f;
-    [SerializeField] Object MiceCart;
+    [SerializeField] UnityEngine.Object MiceCart;
     [SerializeField] private float offset = 1.5f;
+    [SerializeField] private int levelWidth = 97;
 
     private Rigidbody2D rb;
+    private Transform t;
     private Animator anim;
     private Slider fuelSlider;
     private Image[] trainResourcesUI = new Image[3];
     private int resourceCount;
-    private int maxCarts = 2;
+    private int maxCarts = 3;
     private int currentCarts;
-    private Object[] carts;
+    private UnityEngine.Object[] carts;
     private TerrainSlicer ts;
     // Start is called before the first frame update
     void Start()
@@ -27,9 +30,10 @@ public class TrainController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         ts = GetComponent<TerrainSlicer>();
+        t = GetComponent<Transform>();
         fuelSlider = GameObject.Find("TrainFuellProgressBar").GetComponent<Slider>();
         FindUIResources();
-        carts = new Object[maxCarts];
+        carts = new UnityEngine.Object[maxCarts];
         currentCarts = 0;
         resourceCount = 0;
     }
@@ -66,7 +70,11 @@ public class TrainController : MonoBehaviour
 
     private void ProgressBarrUpdate()
     {
-        fuelSlider.value = fuel / 300;
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+        fuelSlider.value = (fuel / 300f)*0.2f+0.8f;
         for (int i = 0; i < 3; i++)
         {
             if (i < resourceCount)
@@ -86,7 +94,7 @@ public class TrainController : MonoBehaviour
         if (currentCarts == maxCarts)
         {
             win = true;
-            foreach (Object cart in carts)
+            foreach (UnityEngine.Object cart in carts)
             {
                 if (cart == null)
                 {
@@ -110,17 +118,32 @@ public class TrainController : MonoBehaviour
 
     private void Move()
     {
-        if(HasFuell())
+        Debug.Log("pos: " + Convert.ToInt32(t.position.x));
+        if(HasFuell() && Convert.ToInt32(t.position.x) != levelWidth)
         {
+            if(Time.timeScale == 0)
+            {
+                return;
+            }
             rb.velocity = new Vector2(speed, 0);
             fuel -= fuelConsumption;
             anim.SetBool("Moving", true);
+        }
+        else if (Convert.ToInt32(t.position.x) == levelWidth && !GameInfo.won)
+        {
+            rb.velocity = new Vector2(0, 0);
+            anim.SetBool("Moving", false);
+            GameInfo.won = false;
+            GameInfo.lost = true;
+            Time.timeScale = 0;
+            Debug.Log("Game Over");
         }
         else
         {
             rb.velocity = new Vector2(0, 0);
             anim.SetBool("Moving", false);
         }
+
         MoveCarts();
     }
 

@@ -10,6 +10,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private AudioClip backgroundMusic;
 
     private Vector3 mCamerapos;
+    private bool pausable = true;
 
     GameObject train;
     Rigidbody2D trb;
@@ -37,8 +38,10 @@ public class InGameUIController : MonoBehaviour
     public GameObject PauseButtonRestart;
     public GameObject PauseButtonResume;
     public GameObject PauseButton;
+    public GameObject helpButton;
 
     public GameObject PauseButtonSettingsBack;
+    private GameObject HelpCanvas;
 
     private GameObject musicVol;
     private GameObject musicVolumeSlider;
@@ -64,6 +67,9 @@ public class InGameUIController : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
+        GameInfo.lost = false;
+        GameInfo.won = false;
+        end = false;
         OnStartUI();
         for (int i = 0; i < fuelCheesesP1.Length; i++)
         {
@@ -102,8 +108,11 @@ public class InGameUIController : MonoBehaviour
             lostText.enabled = true;
             restartButton.SetActive(true);
             mainMenuButton.SetActive(true);
+            grayBack.GetComponent<Image>().enabled = true;
+            Time.timeScale = 0;
+
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && pausable)
         {
             if(Time.timeScale == 0)
             {
@@ -163,6 +172,7 @@ public class InGameUIController : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        helpButton.SetActive(false);
         pauseText.SetActive(true);
         PauseButtonBack.SetActive(true);
         PauseButtonSettings.SetActive(true);
@@ -175,6 +185,7 @@ public class InGameUIController : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
+        helpButton.SetActive(true);
         pauseText.SetActive(false);
         PauseButtonBack.SetActive(false);
         PauseButtonSettings.SetActive(false);
@@ -231,6 +242,12 @@ public class InGameUIController : MonoBehaviour
         miceP2 = GetImagesWithTag("MouseP2");
         grayBack = GameObject.Find("GrayBack");
         grayBack.GetComponent<Image>().enabled = false;
+
+        helpButton = GameObject.Find("Help");
+        helpButton.SetActive(true);
+
+        HelpCanvas = GameObject.Find("HelpCanvas");
+        HelpCanvas.SetActive(false);
         
         P1Name = GameObject.Find("Player1Name").GetComponent<TextMeshProUGUI>();
         P2Name = GameObject.Find("Player2Name").GetComponent<TextMeshProUGUI>();
@@ -312,26 +329,29 @@ public class InGameUIController : MonoBehaviour
 
     public void NextLevel()
     {
+        pausable = false;
         wonText.enabled = false;
         nextLevelButton.SetActive(false);
         mainMenuButton.SetActive(false);
         restartButton.SetActive(false);
         grayBack.GetComponent<Image>().enabled = false;
-
+        PauseButton.SetActive(false);
         end = true;
         mCamerapos = mCamera.position;
     }
 
     private void TrainExit()
     {
-       
+        pausable = false;
         mCamera.position = mCamerapos;
         Time.timeScale = 1;
         trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
         tctrl.MoveCarts();
         trainEnum += 1;
+        Debug.Log(trainEnum);
         if (trainEnum >= 300)
         {
+            Debug.Log("Train Exit");
             end = false;
             trainEnum = 0;
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
@@ -386,5 +406,25 @@ public class InGameUIController : MonoBehaviour
     {
         GameInfo.isPlayer2Playing = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Help()
+    {
+        if (HelpCanvas.activeSelf)
+        {
+            PauseButton.SetActive(true);
+            pausable = true;
+            Time.timeScale = 1;
+            HelpCanvas.SetActive(false);
+            grayBack.GetComponent<Image>().enabled = false;
+        }
+        else
+        {
+            PauseButton.SetActive(false);
+            pausable = false;
+            Time.timeScale = 0;
+            HelpCanvas.SetActive(true);
+            grayBack.GetComponent<Image>().enabled = true;
+        }
     }
 }

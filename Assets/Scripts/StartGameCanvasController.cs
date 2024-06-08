@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGameCanvasController : MonoBehaviour
@@ -14,11 +15,16 @@ public class StartGameCanvasController : MonoBehaviour
     public GameObject player1Image;
     public GameObject player2Image;
 
+    public GameObject howToCanvas;
+    public GameObject startGameCanvas;
+
 
     public UnityEngine.Color[] colors = { new Color32(0xFF, 0x7E, 0x70, 0xFF), new Color32(0xE4, 0xFF, 0x70, 0xFF), new Color32(0x70, 0xC3, 0xFF, 0xFF) };
 
     private void Awake()
     {
+        startGameCanvas = GameObject.Find("StartGameCanvas");
+        howToCanvas = GameObject.Find("HowToCanvas");
         player2Name = GameObject.Find("Player2Name");
         removePlayer2Button = GameObject.Find("RemovePlayer2Button");
         playerButton = GameObject.Find("Player2Button");
@@ -41,15 +47,9 @@ public class StartGameCanvasController : MonoBehaviour
 
     public void Play()
     {
-        try
-        {
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Level");
-        }
-        catch
-        {
-            Debug.Log("No level scene to unload");
-        }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level");
+        startGameCanvas.SetActive(false);
+        howToCanvas.SetActive(true);
+
     }
 
     public void AddPlayer2()
