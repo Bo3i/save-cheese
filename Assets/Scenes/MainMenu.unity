@@ -5228,7 +5228,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1880954740}
         m_TargetAssemblyTypeName: StartGameCanvasController, Assembly-CSharp
         m_MethodName: SetPlayer1Name
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6085,7 +6085,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1880954740}
         m_TargetAssemblyTypeName: StartGameCanvasController, Assembly-CSharp
         m_MethodName: SetPlayer2Name
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9689,7 +9689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869058190005049657, guid: bed24a513d25b084c90837adae839d13, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1869058190005049657, guid: bed24a513d25b084c90837adae839d13, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -9833,7 +9833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3825959119300207186, guid: bed24a513d25b084c90837adae839d13, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3825959119300207186, guid: bed24a513d25b084c90837adae839d13, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName

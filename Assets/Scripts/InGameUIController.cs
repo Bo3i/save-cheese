@@ -67,6 +67,9 @@ public class InGameUIController : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
+        GameInfo.lost = false;
+        GameInfo.won = false;
+        end = false;
         OnStartUI();
         for (int i = 0; i < fuelCheesesP1.Length; i++)
         {
@@ -105,6 +108,9 @@ public class InGameUIController : MonoBehaviour
             lostText.enabled = true;
             restartButton.SetActive(true);
             mainMenuButton.SetActive(true);
+            grayBack.GetComponent<Image>().enabled = true;
+            Time.timeScale = 0;
+
         }
         if(Input.GetKeyDown(KeyCode.Escape) && pausable)
         {
@@ -342,8 +348,10 @@ public class InGameUIController : MonoBehaviour
         trb.velocity = new Vector2(trb.velocity.x + 15f, trb.velocity.y);
         tctrl.MoveCarts();
         trainEnum += 1;
+        Debug.Log(trainEnum);
         if (trainEnum >= 300)
         {
+            Debug.Log("Train Exit");
             end = false;
             trainEnum = 0;
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
