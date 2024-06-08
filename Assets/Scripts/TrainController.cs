@@ -15,6 +15,7 @@ public class TrainController : MonoBehaviour
     [SerializeField] private int levelWidth = 97;
 
     private Rigidbody2D rb;
+    private Transform t;
     private Animator anim;
     private Slider fuelSlider;
     private Image[] trainResourcesUI = new Image[3];
@@ -29,6 +30,7 @@ public class TrainController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         ts = GetComponent<TerrainSlicer>();
+        t = GetComponent<Transform>();
         fuelSlider = GameObject.Find("TrainFuellProgressBar").GetComponent<Slider>();
         FindUIResources();
         carts = new UnityEngine.Object[maxCarts];
@@ -116,7 +118,8 @@ public class TrainController : MonoBehaviour
 
     private void Move()
     {
-        if(HasFuell() && Convert.ToInt32(rb.position.x) != levelWidth)
+        Debug.Log("pos: " + Convert.ToInt32(t.position.x));
+        if(HasFuell() && Convert.ToInt32(t.position.x) != levelWidth)
         {
             if(Time.timeScale == 0)
             {
@@ -126,7 +129,7 @@ public class TrainController : MonoBehaviour
             fuel -= fuelConsumption;
             anim.SetBool("Moving", true);
         }
-        else if (Convert.ToInt32(rb.position.x) == levelWidth)
+        else if (Convert.ToInt32(t.position.x) == levelWidth)
         {
             rb.velocity = new Vector2(0, 0);
             anim.SetBool("Moving", false);

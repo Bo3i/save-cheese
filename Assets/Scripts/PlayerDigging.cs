@@ -307,7 +307,7 @@ public class PlayerDigging : MonoBehaviour
     IEnumerator Fade(Vector3Int cell, int an, Tilemap tilemap)
     {
         Color c = tilemap.GetColor(cell);
-        for (float alpha = 1f; alpha >= 0; alpha -= 0.015f)
+        for (float alpha = 1f; alpha >= 0; alpha -= 0.05f)
         {
             anim.SetInteger("state", an);
             c.a = alpha;
