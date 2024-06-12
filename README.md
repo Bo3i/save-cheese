@@ -10,4 +10,5 @@ Game was created during Computer Game Design course conducted on SGGW.
 # Authors
 
 Palina Sauranskaya s208328
+
 Jakub Kindlik s210871
